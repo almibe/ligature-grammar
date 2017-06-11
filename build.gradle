@@ -8,6 +8,7 @@ buildscript {
     }
 }
 
+apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'antlr'
 apply plugin: 'org.dm.bundle'
@@ -22,7 +23,7 @@ repositories {
 
 dependencies {
     antlr 'org.antlr:antlr4:4.7'
-    testCompile 'junit:junit:6.10'
+    testCompile 'junit:junit:4.12'
 }
 
 bundle {
