@@ -1,2 +1,3 @@
-# ligature-grammar
-ANTLR grammars files for ligature
+# ligature-store
+
+Store and query ligature objects in OrientDB.
