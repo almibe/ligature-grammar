@@ -25,7 +25,7 @@ predicate
 ;
 
 object
-  : iri | blankNode | literal | typedLiteral | languageLiteral
+  : iri | blankNode | literal | typedLiteral | langLiteral
 ;
 
 iri
@@ -40,7 +40,7 @@ typedLiteral
   : literal '^^' iri
 ;
 
-languageLiteral
+langLiteral
   : literal LANG_TAG
 ;
 
