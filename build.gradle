@@ -29,6 +29,6 @@ bundle {
     instruction 'Export-Package', 'org.almibe.ligature.parser.*'
 }
 
-test {
-    useTestNG()
+generateGrammarSource {
+    arguments += ["-no-listener", "-visitor"]
 }
