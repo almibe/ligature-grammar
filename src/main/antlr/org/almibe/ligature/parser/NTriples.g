@@ -13,7 +13,7 @@ ntriplesDoc
 ;
 
 triple
-  : subject predicate object '.'
+  : subject predicate object PERIOD
 ;
 
 subject
@@ -25,7 +25,11 @@ predicate
 ;
 
 object
-  : IRIREF | BLANK_NODE_LABEL | LITERAL | TYPED_LITERAL | LANG_LITERAL
+  : IRIREF | BLANK_NODE_LABEL | literal
+;
+
+literal
+  : STRING_LITERAL_QUOTE (LITERAL_TYPE IRIREF | LANGTAG)?
 ;
 
 LANGTAG
@@ -40,16 +44,8 @@ IRIREF
   : '<' .* '>' //TODO this needs completed -- see spec
 ;
 
-LITERAL
-  : '"' (ECHAR | UCHAR)* '"'
-;
-
-TYPED_LITERAL
-  : LITERAL '^^' IRIREF
-;
-
-LANG_LITERAL
-  : LITERAL LANGTAG
+STRING_LITERAL_QUOTE
+  : .* //TODO this needs completed -- see spec
 ;
 
 BLANK_NODE_LABEL
@@ -82,4 +78,12 @@ HEX
 
 WS
   : (' ' | '\t' | '\n' | '\r')+ -> skip
+;
+
+PERIOD
+  : '.'
+;
+
+LITERAL_TYPE
+  : '^^'
 ;
