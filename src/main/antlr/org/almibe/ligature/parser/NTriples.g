@@ -33,7 +33,11 @@ literal
 ;
 
 LANGTAG
-  : '@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
+  : '@' LANG
+;
+
+LANG
+  : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
 EOL
@@ -41,15 +45,27 @@ EOL
 ;
 
 IRIREF
-  : '<' (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)* '>'
+  : '<' IRI '>'
+;
+
+IRI
+  : (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)*
 ;
 
 STRING_LITERAL_QUOTE
-  : '"' (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)* '"'
+  : '"' STRING_CONTENT '"'
+;
+
+STRING_CONTENT
+  : (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)*
 ;
 
 BLANK_NODE_LABEL
-  : '_:' (PN_CHARS_U | '0' .. '9') ((PN_CHARS | '.')* PN_CHARS)?
+  : '_:' BLANK_NODE_NAME
+;
+
+BLANK_NODE_NAME
+  : (PN_CHARS_U | '0' .. '9') ((PN_CHARS | '.')* PN_CHARS)?
 ;
 
 UCHAR
