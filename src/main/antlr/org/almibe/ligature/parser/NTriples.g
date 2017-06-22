@@ -8,52 +8,52 @@ grammar NTriples;
     package org.almibe.ligature.parser;
 }
 
-document
-  : triple*
+ntriplesDoc
+  : triple? (EOL triple)* EOL?
 ;
 
 triple
-  : subject predicate object PERIOD
+  : subject predicate object '.'
 ;
 
 subject
-  : iri | blankNode
+  : IRIREF | BLANK_NODE_LABEL
 ;
 
 predicate
-  : iri
+  : IRIREF
 ;
 
 object
-  : iri | blankNode | literal | typedLiteral | langLiteral
+  : IRIREF | BLANK_NODE_LABEL | LITERAL | TYPED_LITERAL | LANG_LITERAL
 ;
 
-iri
-  : '<' (PN_CHARS | UCHAR)* '>'
+LANGTAG
+  : '@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
-literal
+EOL
+  : ('\u000D' | '\u000A')+
+;
+
+IRIREF
+  : '<' .* '>' //TODO this needs completed -- see spec
+;
+
+LITERAL
   : '"' (ECHAR | UCHAR)* '"'
 ;
 
-typedLiteral
-  : literal '^^' iri
+TYPED_LITERAL
+  : LITERAL '^^' IRIREF
 ;
 
-langLiteral
-  : literal LANG_TAG
+LANG_LITERAL
+  : LITERAL LANGTAG
 ;
 
-blankNode
+BLANK_NODE_LABEL
   : '_:' PN_CHARS_U
-;
-
-PERIOD
-  : '.'
-;
-
-HEX
-  : [0-9] | [A-F] | [a-f]
 ;
 
 UCHAR
@@ -76,8 +76,8 @@ PN_CHARS
   : PN_CHARS_U | '-' | [0-9] | '\u00B7' | [\u0300-\u036F] | [\u203F-\u2040]
 ;
 
-LANG_TAG
-  : '@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
+HEX
+  : [0-9] | [A-F] | [a-f]
 ;
 
 WS
