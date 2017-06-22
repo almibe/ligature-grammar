@@ -45,19 +45,19 @@ EOL
 ;
 
 IRIREF
-  : '<' IRI '>'
+  : '<' IRI? '>'
 ;
 
 IRI
-  : (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)*
+  : (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
 ;
 
 STRING_LITERAL_QUOTE
-  : '"' STRING_CONTENT '"'
+  : '"' STRING_CONTENT? '"'
 ;
 
 STRING_CONTENT
-  : (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)*
+  : (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)+
 ;
 
 BLANK_NODE_LABEL
