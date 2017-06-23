@@ -36,7 +36,7 @@ LANGTAG
   : '@' LANG
 ;
 
-LANG
+fragment LANG
   : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
@@ -48,7 +48,7 @@ IRIREF
   : '<' IRI? '>'
 ;
 
-IRI
+fragment IRI
   : (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
 ;
 
@@ -56,7 +56,7 @@ STRING_LITERAL_QUOTE
   : '"' STRING_CONTENT? '"'
 ;
 
-STRING_CONTENT
+fragment STRING_CONTENT
   : (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)+
 ;
 
@@ -64,7 +64,7 @@ BLANK_NODE_LABEL
   : '_:' BLANK_NODE_NAME
 ;
 
-BLANK_NODE_NAME
+fragment BLANK_NODE_NAME
   : (PN_CHARS_U | '0' .. '9') ((PN_CHARS | '.')* PN_CHARS)?
 ;
 
