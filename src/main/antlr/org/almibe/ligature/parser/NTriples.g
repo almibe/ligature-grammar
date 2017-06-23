@@ -103,3 +103,7 @@ PERIOD
 LITERAL_TYPE
   : '^^'
 ;
+
+COMMENT
+  : '#' ~('\r' | '\n')* -> skip
+;
