@@ -45,7 +45,7 @@ EOL
 ;
 
 IRIREF
-  : '<' IRI? '>'
+  : '<' IRI '>'
 ;
 
 fragment IRI
