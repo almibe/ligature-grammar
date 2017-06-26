@@ -65,7 +65,7 @@ object
 ;
 
 literal
-  : RDFLiteral | numericLiteral | booleanLiteral
+  : rdfLiteral | numericLiteral | booleanLiteral
 ;
 
 blankNodePropertyList
@@ -153,15 +153,15 @@ fragment EXPONENT
 ;
 
 STRING_LITERAL_QUOTE
-  : '"' ([^#x22#x5C#xA#xD] | ECHAR | UCHAR)* '"' /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
+  : '"' (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)* '"' /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
 ;
 
 STRING_LITERAL_SINGLE_QUOTE
-  : SINGLE_QUOTE ([^#x27#x5C#xA#xD] | ECHAR | UCHAR)* SINGLE_QUOTE /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
+  : SINGLE_QUOTE (~('\u0027' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)* SINGLE_QUOTE /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
 ;
 
 STRING_LITERAL_LONG_SINGLE_QUOTE //TODO not sure this is correct needs thorough testing
-  : SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE ((SINGLE_QUOTE | SINGLE_QUOTE SINGLE_QUOTE)? (~(SINGLE_QUOTE | '\\') | ECHAR | UCHAR))* SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE
+  : SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE ((SINGLE_QUOTE | SINGLE_QUOTE SINGLE_QUOTE)? (~('\'' | '\\') | ECHAR | UCHAR))* SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE
 ;
 
 fragment SINGLE_QUOTE
@@ -217,7 +217,7 @@ HEX //possible dupe
 ;
 
 PN_LOCAL_ESC
-  : '\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
+  : '\\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | SINGLE_QUOTE | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
 ;
 
 WS
