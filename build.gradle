@@ -30,5 +30,5 @@ bundle {
 }
 
 generateGrammarSource {
-    arguments += ["-no-listener", "-visitor"]
+    arguments += ["-visitor"]
 }
