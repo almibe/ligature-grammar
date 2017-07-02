@@ -227,3 +227,7 @@ PN_LOCAL_ESC
 WS
   : (' ' | '\t' | '\n' | '\r')+ -> skip
 ;
+
+COMMENT
+  : '#' ~('\r' | '\n')* -> skip
+;
