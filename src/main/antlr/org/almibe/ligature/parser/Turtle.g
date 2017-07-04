@@ -21,19 +21,19 @@ directive
 ;
 
 prefixID
-  : '@prefix' PNAME_NS IRIREF '.'
+  : '@prefix' PNAME_NS iriRef '.'
 ;
 
 base
-  : '@base' IRIREF '.'
+  : '@base' iriRef '.'
 ;
 
 sparqlBase
-  : 'BASE' IRIREF
+  : 'BASE' iriRef
 ;
 
 sparqlPrefix
-  : 'PREFIX' PNAME_NS IRIREF
+  : 'PREFIX' PNAME_NS iriRef
 ;
 
 triples
@@ -97,7 +97,7 @@ string
 ;
 
 iri
-  : IRIREF | prefixedName
+  : iriRef | prefixedName
 ;
 
 prefixedName
@@ -108,11 +108,19 @@ blankNode
   : BLANK_NODE_LABEL | ANON
 ;
 
-IRIREF //possible dupe
-  : '<' IRI '>'
+iriRef
+  : '<' (ABSOLUTE_IRI | RELATIVE_IRI) '>'
 ;
 
-fragment IRI //possible dupe
+ABSOLUTE_IRI
+  : SCHEME ':' (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
+;
+
+fragment SCHEME
+  : ('a' .. 'z' | 'A' .. 'Z')+ ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '+' | '-' | '.')*
+;
+
+RELATIVE_IRI
   : (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
 ;
 
