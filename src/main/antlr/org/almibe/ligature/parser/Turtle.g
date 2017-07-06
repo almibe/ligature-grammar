@@ -120,6 +120,10 @@ fragment LANG //possible dupe
   : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
+PNAME_NS //TODO I don't think this is correct
+  : PN_PREFIX? ':'
+;
+
 ABSOLUTE_IRI
   : SCHEME ':' (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
 ;
@@ -130,10 +134,6 @@ fragment SCHEME
 
 RELATIVE_IRI
   : (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
-;
-
-PNAME_NS
-  : PN_PREFIX? ':'
 ;
 
 PNAME_LN
