@@ -112,6 +112,14 @@ iriRef
   : '<' (ABSOLUTE_IRI | RELATIVE_IRI) '>'
 ;
 
+LANGTAG //possible dupe
+  : '@' LANG
+;
+
+fragment LANG //possible dupe
+  : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
+;
+
 ABSOLUTE_IRI
   : SCHEME ':' (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
 ;
@@ -138,14 +146,6 @@ BLANK_NODE_LABEL //possible dupe
 
 fragment BLANK_NODE_NAME //possible dupe
   : (PN_CHARS_U | '0' .. '9') ((PN_CHARS | '.')* PN_CHARS)?
-;
-
-LANGTAG //possible dupe
-  : '@' LANG
-;
-
-fragment LANG //possible dupe
-  : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
 INTEGER
