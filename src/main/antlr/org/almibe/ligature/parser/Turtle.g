@@ -97,11 +97,7 @@ string
 ;
 
 iri
-  : iriRef | prefixedName
-;
-
-prefixedName
-  : PNAME_LN | PNAME_NS
+  : iriRef | PREFIXED_NAME
 ;
 
 blankNode
@@ -122,6 +118,10 @@ fragment LANG //possible dupe
 
 PNAME_NS //TODO I don't think this is correct
   : PN_PREFIX? ':'
+;
+
+PREFIXED_NAME
+  : PNAME_LN | PNAME_NS
 ;
 
 ABSOLUTE_IRI
