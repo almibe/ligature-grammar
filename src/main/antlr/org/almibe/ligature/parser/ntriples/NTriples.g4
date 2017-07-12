@@ -1,11 +1,11 @@
 grammar NTriples;
 
 @lexer::header {
-    package org.almibe.ligature.parser;
+    package org.almibe.ligature.parser.ntriples;
 }
 
 @parser::header {
-    package org.almibe.ligature.parser;
+    package org.almibe.ligature.parser.ntriples;
 }
 
 ntriplesDoc
