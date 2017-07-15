@@ -28,7 +28,3 @@ bundle {
     instruction 'Import-Package', '*'
     instruction 'Export-Package', 'org.almibe.ligature.parser.*'
 }
-
-generateGrammarSource {
-    arguments += ["-visitor"]
-}
