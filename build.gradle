@@ -28,3 +28,7 @@ bundle {
     instruction 'Import-Package', '*'
     instruction 'Export-Package', 'org.almibe.ligature.parser.*'
 }
+
+generateGrammarSource {
+    arguments << "-lib" << "src/main/antlr/org/almibe/ligature/parser/turtle"
+}
