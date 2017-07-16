@@ -1,10 +1,10 @@
 grammar Turtle;
 
-import ModalTurtleLexer;
-
-@parser::header {
+@header {
     package org.almibe.ligature.parser.turtle;
 }
+
+options { tokenVocab = ModalTurtleLexer; }
 
 turtleDoc
   : statement*

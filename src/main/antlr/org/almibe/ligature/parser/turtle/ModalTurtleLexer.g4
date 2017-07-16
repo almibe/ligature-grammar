@@ -4,6 +4,16 @@ lexer grammar ModalTurtleLexer;
     package org.almibe.ligature.parser.turtle;
 }
 
+START_IRI : '<' -> mode(IRI);
+//START_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> pushMode(TRIPLE_SINGLE_QUOTE);
+//START_TRIPLE_DOUBLE_QUOTE : '"""' -> pushMode(TRIPLE_DOUBLE_QUOTE);
+//START_SINGLE_QUOTE : '\'' -> pushMode(SINGLE_QUOTE);
+//START_DOUBLE_QUOTE : '"' -> pushMode(DOUBLE_QUOTE);
+//START_SPARQL_BASE : [Bb] [Aa] [Ss] [Ee] -> pushMode(SPARQL_BASE);
+//START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx] -> pushMode(SPARQL_PREFIX);
+//START_BASE : '@base' -> pushMode(BASE);
+//START_PREFIX : '@prefix' -> pushMode(PREFIX);
+
 LANGTAG //possible dupe
   : '@' LANG
 ;
@@ -136,16 +146,17 @@ COMMENT
   : '#' ~('\r' | '\n')* -> skip
 ;
 
+mode IRI;
+CLOSE_IRI : '>'  -> popMode;
 
-//OPEN : '<' -> pushMode(IRI);
-//
-//WS
-//  : (' ' | '\t' | '\n' | '\r')+ -> skip
-//;
-//
-//COMMENT
-//  : '#' ~('\r' | '\n')* -> skip
-//;
-//
-//mode IRI;
-//CLOSE : '>'  -> popMode;
+mode TRIPLE_SINGLE_QUOTE;
+CLOSE_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> popMode;
+
+mode TRIPLE_DOUBLE_QUOTE;
+CLOSE_TRIPLE_DOUBLE_QUOTE : '"""' -> popMode;
+
+mode SINGLE_QUOTE;
+CLOSE_SINGLE_QUOTE : '\'' -> popMode;
+
+mode DOUBLE_QUOTE;
+CLOSE_DOUBLE_QUOTE : '"' -> popMode;
