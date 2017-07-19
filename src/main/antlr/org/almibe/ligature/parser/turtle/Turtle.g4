@@ -1,8 +1,4 @@
-grammar Turtle;
-
-@header {
-    package org.almibe.ligature.parser.turtle;
-}
+parser grammar Turtle;
 
 options { tokenVocab = ModalTurtleLexer; }
 
@@ -19,19 +15,19 @@ directive
 ;
 
 prefixID
-  : '@prefix' PNAME_NS iriRef '.'
+  : '@prefix' PNAME_NS START_IRI '.'
 ;
 
 base
-  : '@base' iriRef '.'
+  : '@base' START_IRI '.'
 ;
 
 sparqlBase
-  : 'BASE' iriRef
+  : START_SPARQL_BASE START_IRI
 ;
 
 sparqlPrefix
-  : 'PREFIX' PNAME_NS iriRef
+  : START_SPARQL_PREFIX PNAME_NS START_IRI
 ;
 
 triples
@@ -95,13 +91,10 @@ string
 ;
 
 iri
-  : iriRef | PREFIXED_NAME
+  : '<' (ABSOLUTE_IRI | RELATIVE_IRI) '>'
+  | PREFIXED_NAME
 ;
 
 blankNode
   : BLANK_NODE_LABEL | ANON
-;
-
-iriRef
-  : '<' (ABSOLUTE_IRI | RELATIVE_IRI) '>'
 ;

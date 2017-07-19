@@ -1,18 +1,59 @@
 lexer grammar ModalTurtleLexer;
 
-@lexer::header {
-    package org.almibe.ligature.parser.turtle;
-}
-
 START_IRI : '<' -> mode(IRI);
-//START_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> pushMode(TRIPLE_SINGLE_QUOTE);
-//START_TRIPLE_DOUBLE_QUOTE : '"""' -> pushMode(TRIPLE_DOUBLE_QUOTE);
-//START_SINGLE_QUOTE : '\'' -> pushMode(SINGLE_QUOTE);
-//START_DOUBLE_QUOTE : '"' -> pushMode(DOUBLE_QUOTE);
-//START_SPARQL_BASE : [Bb] [Aa] [Ss] [Ee] -> pushMode(SPARQL_BASE);
-//START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx] -> pushMode(SPARQL_PREFIX);
-//START_BASE : '@base' -> pushMode(BASE);
-//START_PREFIX : '@prefix' -> pushMode(PREFIX);
+START_TRIPLE_SINGLE_QUOTE : '\'\'\'';// -> pushMode(TRIPLE_SINGLE_QUOTE);
+START_TRIPLE_DOUBLE_QUOTE : '"""';// -> pushMode(TRIPLE_DOUBLE_QUOTE);
+START_SINGLE_QUOTE : '\'';// -> pushMode(SINGLE_QUOTE);
+START_DOUBLE_QUOTE : '"';// -> pushMode(DOUBLE_QUOTE);
+START_SPARQL_BASE : [Bb] [Aa] [Ss] [Ee];// -> pushMode(SPARQL_BASE);
+START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx];// -> pushMode(SPARQL_PREFIX);
+START_BASE : '@base';// -> pushMode(BASE);
+START_PREFIX : '@prefix';// -> pushMode(PREFIX);
+
+PERIOD
+  : '.'
+;
+
+SEMICOLON
+  : ';'
+;
+
+COMMA
+  : ','
+;
+
+A
+  : 'a'
+;
+
+TRUE
+  : 'true'
+;
+
+FALSE
+  : 'false'
+;
+
+LITERAL_TYPE
+  : '^^'
+;
+
+OPEN_PAREN
+  : '('
+;
+
+CLOSE_PAREN
+  : ')'
+;
+
+OPEN_BRACKET
+  : '['
+;
+
+CLOSE_BRACKET
+  : ']'
+;
+
 
 LANGTAG //possible dupe
   : '@' LANG
@@ -28,18 +69,6 @@ PNAME_NS //TODO I don't think this is correct
 
 PREFIXED_NAME
   : PNAME_LN | PNAME_NS
-;
-
-ABSOLUTE_IRI
-  : SCHEME ':' (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
-;
-
-fragment SCHEME
-  : ('a' .. 'z' | 'A' .. 'Z')+ ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '+' | '-' | '.')*
-;
-
-RELATIVE_IRI
-  : (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
 ;
 
 PNAME_LN
@@ -90,7 +119,7 @@ STRING_LITERAL_LONG_QUOTE //TODO not sure this is correct needs thorough testing
   : '"""' (('"' | '""')? (~('"' | '\\') | ECHAR | UCHAR))* '"""'
 ;
 
-UCHAR //possible dupe
+fragment UCHAR //possible dupe
   : '\\u' HEX HEX HEX HEX | '\\U' HEX HEX HEX HEX HEX HEX HEX HEX
 ;
 
@@ -147,7 +176,22 @@ COMMENT
 ;
 
 mode IRI;
-CLOSE_IRI : '>'  -> popMode;
+
+CLOSE_IRI
+  : '>'  -> mode(DEFAULT_MODE)
+;
+
+ABSOLUTE_IRI
+  : SCHEME ':' (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
+;
+
+fragment SCHEME
+  : ('a' .. 'z' | 'A' .. 'Z')+ ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '+' | '-' | '.')*
+;
+
+RELATIVE_IRI
+  : (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
+;
 
 mode TRIPLE_SINGLE_QUOTE;
 CLOSE_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> popMode;
