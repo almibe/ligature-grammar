@@ -10,54 +10,18 @@ START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx];// -> pushMode(SPARQL_PREFIX
 START_BASE : '@base';// -> pushMode(BASE);
 START_PREFIX : '@prefix';// -> pushMode(PREFIX);
 
-PERIOD
-  : '.'
-;
-
-SEMICOLON
-  : ';'
-;
-
-COMMA
-  : ','
-;
-
-A
-  : 'a'
-;
-
-TRUE
-  : 'true'
-;
-
-FALSE
-  : 'false'
-;
-
-LITERAL_TYPE
-  : '^^'
-;
-
-OPEN_PAREN
-  : '('
-;
-
-CLOSE_PAREN
-  : ')'
-;
-
-OPEN_BRACKET
-  : '['
-;
-
-CLOSE_BRACKET
-  : ']'
-;
-
-
-LANGTAG //possible dupe
-  : '@' LANG
-;
+PERIOD : '.';
+SEMICOLON : ';';
+COMMA : ',';
+A : 'a';
+TRUE : 'true';
+FALSE : 'false';
+LITERAL_TYPE : '^^';
+OPEN_PAREN : '(';
+CLOSE_PAREN : ')';
+OPEN_BRACKET : '[';
+CLOSE_BRACKET : ']';
+LANGTAG : '@' LANG;
 
 fragment LANG //possible dupe
   : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
@@ -99,22 +63,24 @@ fragment EXPONENT
   : [eE] [+-]? [0-9]+
 ;
 
-STRING_LITERAL_QUOTE
+STRING_LITERAL_QUOTE //TODO move to own mode
   : '"' (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)* '"' /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
 ;
 
-STRING_LITERAL_SINGLE_QUOTE
+STRING_LITERAL_SINGLE_QUOTE  //TODO move to own mode
   : SINGLE_QUOTE (~('\u0027' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)* SINGLE_QUOTE /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
 ;
 
+//TODO move to own mode
 STRING_LITERAL_LONG_SINGLE_QUOTE //TODO not sure this is correct needs thorough testing
   : SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE ((SINGLE_QUOTE | SINGLE_QUOTE SINGLE_QUOTE)? (~('\'' | '\\') | ECHAR | UCHAR))* SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE
 ;
 
-fragment SINGLE_QUOTE
+fragment SINGLE_QUOTE     //TODO move to own mode
   : '\''
 ;
 
+//TODO move to own mode
 STRING_LITERAL_LONG_QUOTE //TODO not sure this is correct needs thorough testing
   : '"""' (('"' | '""')? (~('"' | '\\') | ECHAR | UCHAR))* '"""'
 ;
