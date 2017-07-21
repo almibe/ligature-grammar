@@ -1,4 +1,4 @@
-lexer grammar ModalTurtleLexer;
+lexer grammar ModalTurtleLexerOLD;
 
 START_IRI : '<' -> mode(IRI);
 START_TRIPLE_SINGLE_QUOTE : '\'\'\'';// -> pushMode(TRIPLE_SINGLE_QUOTE);
@@ -10,18 +10,18 @@ START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx];// -> pushMode(SPARQL_PREFIX
 START_BASE : '@base';// -> pushMode(BASE);
 START_PREFIX : '@prefix';// -> pushMode(PREFIX);
 
-PERIOD : '.';
-SEMICOLON : ';';
-COMMA : ',';
-A : 'a';
-TRUE : 'true';
-FALSE : 'false';
-LITERAL_TYPE : '^^';
-OPEN_PAREN : '(';
-CLOSE_PAREN : ')';
-OPEN_BRACKET : '[';
-CLOSE_BRACKET : ']';
-LANGTAG : '@' LANG;
+fragment PERIOD : '.';
+fragment SEMICOLON : ';';
+fragment COMMA : ',';
+fragment A : 'a';
+fragment TRUE : 'true';
+fragment FALSE : 'false';
+fragment LITERAL_TYPE : '^^';
+fragment OPEN_PAREN : '(';
+fragment CLOSE_PAREN : ')';
+fragment OPEN_BRACKET : '[';
+fragment CLOSE_BRACKET : ']';
+fragment LANGTAG : '@' LANG;
 
 fragment LANG //possible dupe
   : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
@@ -61,10 +61,6 @@ DOUBLE
 
 fragment EXPONENT
   : [eE] [+-]? [0-9]+
-;
-
-STRING_LITERAL_QUOTE //TODO move to own mode
-  : '"' (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)* '"' /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
 ;
 
 STRING_LITERAL_SINGLE_QUOTE  //TODO move to own mode
@@ -169,4 +165,9 @@ mode SINGLE_QUOTE;
 CLOSE_SINGLE_QUOTE : '\'' -> popMode;
 
 mode DOUBLE_QUOTE;
+
 CLOSE_DOUBLE_QUOTE : '"' -> popMode;
+
+STRING_CONTENT_DOUBLE_QUOTE
+  : (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)* /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
+;
