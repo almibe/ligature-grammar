@@ -1,6 +1,6 @@
-parser grammar TurtleOLD;
+parser grammar Turtle;
 
-options { tokenVocab = ModalTurtleLexerOLD; }
+options { tokenVocab = ModalTurtleLexer; }
 
 turtleDoc
   : statement*

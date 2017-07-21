@@ -1,4 +1,4 @@
-lexer grammar ModalTurtleLexerOLD;
+lexer grammar ModalTurtleLexer;
 
 START_IRI : '<' -> mode(IRI);
 START_TRIPLE_SINGLE_QUOTE : '\'\'\'';// -> pushMode(TRIPLE_SINGLE_QUOTE);
