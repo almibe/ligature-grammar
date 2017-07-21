@@ -11,29 +11,29 @@ START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx];// -> pushMode(SPARQL_PREFIX
 START_BASE : '@base';// -> pushMode(BASE);
 START_PREFIX : '@prefix';// -> pushMode(PREFIX);
 
-//COMMON FRAGMENTS
-fragment PERIOD : '.';
-fragment SEMICOLON : ';';
-fragment COMMA : ',';
-fragment A : 'a';
-fragment TRUE : 'true';
-fragment FALSE : 'false';
-fragment LITERAL_TYPE : '^^';
-fragment OPEN_PAREN : '(';
-fragment CLOSE_PAREN : ')';
-fragment OPEN_BRACKET : '[';
-fragment CLOSE_BRACKET : ']';
-fragment LANGTAG : '@' LANG;
+//COMMON TOKENS/FRAGMENTS
+PERIOD : '.';
+SEMICOLON : ';';
+COMMA : ',';
+A : 'a';
+TRUE : 'true';
+FALSE : 'false';
+LITERAL_TYPE : '^^';
+OPEN_PAREN : '(';
+CLOSE_PAREN : ')';
+OPEN_BRACKET : '[';
+CLOSE_BRACKET : ']';
+LANGTAG : '@' LANG;
 
 fragment LANG //possible dupe
   : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
-fragment PNAME_NS //TODO I don't think this is correct
+PNAME_NS //TODO I don't think this is correct
   : PN_PREFIX? ':'
 ;
 
-fragment PREFIXED_NAME
+PREFIXED_NAME
   : PNAME_LN | PNAME_NS
 ;
 
@@ -41,23 +41,23 @@ fragment PNAME_LN
   : PNAME_NS PN_LOCAL
 ;
 
-fragment BLANK_NODE_LABEL //possible dupe
+BLANK_NODE_LABEL //possible dupe
   : '_:' BLANK_NODE_NAME
 ;
 
-fragment BLANK_NODE_NAME //possible dupe
+BLANK_NODE_NAME //possible dupe
   : (PN_CHARS_U | '0' .. '9') ((PN_CHARS | '.')* PN_CHARS)?
 ;
 
-fragment INTEGER
+INTEGER
   : [+-]? [0-9]+
 ;
 
-fragment DECIMAL
+DECIMAL
   : [+-]? [0-9]* '.' [0-9]+
 ;
 
-fragment DOUBLE
+DOUBLE
   : [+-]? ([0-9]+ '.' [0-9]* EXPONENT | '.' [0-9]+ EXPONENT | [0-9]+ EXPONENT)
 ;
 
@@ -91,7 +91,7 @@ fragment ECHAR //possible dupe
   : '\\' [tbnrf"'\\]
 ;
 
-fragment ANON
+ANON
   : '[' ']'
 ;
 
@@ -131,11 +131,11 @@ fragment PN_LOCAL_ESC
   : '\\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | SINGLE_QUOTE | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
 ;
 
-fragment WS
+WS
   : (' ' | '\t' | '\n' | '\r')+ -> skip
 ;
 
-fragment COMMENT
+COMMENT
   : '#' ~('\r' | '\n')* -> skip
 ;
 
