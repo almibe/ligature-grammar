@@ -143,26 +143,20 @@ RELATIVE_IRI
 
 mode TRIPLE_SINGLE_QUOTE;
 CLOSE_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> popMode;
-TRIPLE_SINGLE_QUOTE_ECHAR : ECHAR;
-TRIPLE_SINGLE_QUOTE_UCHAR : UCHAR;
 
 STRING_CONTENT_TRIPLE_SINGLE_QUOTE //TODO not sure this is correct needs thorough testing
-  : SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE ((SINGLE_QUOTE | SINGLE_QUOTE SINGLE_QUOTE)? (~('\'' | '\\') | ECHAR | UCHAR))* SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE
+  : ((SINGLE_QUOTE | SINGLE_QUOTE SINGLE_QUOTE)? (~('\'' | '\\') | ECHAR | UCHAR))+
 ;
 
 mode TRIPLE_DOUBLE_QUOTE;
 CLOSE_TRIPLE_DOUBLE_QUOTE : '"""' -> popMode;
-TRIPLE_DOUBLE_ECHAR : ECHAR;
-TRIPLE_DOUBLE_UCHAR : UCHAR;
 
 STRING_CONTENT_TRIPLE_DOUBLE_QUOTE //TODO not sure this is correct needs thorough testing
-  : '"""' (('"' | '""')? (~('"' | '\\') | ECHAR | UCHAR))* '"""'
+  : (('"' | '""')? (~('"' | '\\') | ECHAR | UCHAR))+
 ;
 
 mode SINGLE_QUOTE;
 CLOSE_SINGLE_QUOTE : '\'' -> popMode;
-SINGLE_QUOTE_ECHAR : ECHAR;
-SINGLE_QUOTE_UCHAR : UCHAR;
 
 STRING_CONTENT_SINGLE_QUOTE
   : (~('\u0027' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)+ /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
@@ -170,9 +164,7 @@ STRING_CONTENT_SINGLE_QUOTE
 
 mode DOUBLE_QUOTE;
 CLOSE_DOUBLE_QUOTE : '"' -> popMode;
-DOUBLE_QUOTE_ECHAR : ECHAR;
-DOUBLE_QUOTE_UCHAR : UCHAR;
 
 STRING_CONTENT_DOUBLE_QUOTE
-  : (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | DOUBLE_QUOTE_ECHAR | DOUBLE_QUOTE_UCHAR)+ /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
+  : (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)+ /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
 ;
