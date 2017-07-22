@@ -65,18 +65,8 @@ fragment EXPONENT
   : [eE] [+-]? [0-9]+
 ;
 
-//TODO move to own mode
-fragment STRING_LITERAL_LONG_SINGLE_QUOTE //TODO not sure this is correct needs thorough testing
-  : SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE ((SINGLE_QUOTE | SINGLE_QUOTE SINGLE_QUOTE)? (~('\'' | '\\') | ECHAR | UCHAR))* SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE
-;
-
-fragment SINGLE_QUOTE     //TODO move to own mode
+fragment SINGLE_QUOTE
   : '\''
-;
-
-//TODO move to own mode
-fragment STRING_LITERAL_LONG_QUOTE //TODO not sure this is correct needs thorough testing
-  : '"""' (('"' | '""')? (~('"' | '\\') | ECHAR | UCHAR))* '"""'
 ;
 
 UCHAR //possible dupe
@@ -156,10 +146,18 @@ CLOSE_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> popMode;
 TRIPLE_SINGLE_QUOTE_ECHAR : ECHAR;
 TRIPLE_SINGLE_QUOTE_UCHAR : UCHAR;
 
+STRING_CONTENT_TRIPLE_SINGLE_QUOTE //TODO not sure this is correct needs thorough testing
+  : SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE ((SINGLE_QUOTE | SINGLE_QUOTE SINGLE_QUOTE)? (~('\'' | '\\') | ECHAR | UCHAR))* SINGLE_QUOTE SINGLE_QUOTE SINGLE_QUOTE
+;
+
 mode TRIPLE_DOUBLE_QUOTE;
 CLOSE_TRIPLE_DOUBLE_QUOTE : '"""' -> popMode;
 TRIPLE_DOUBLE_ECHAR : ECHAR;
 TRIPLE_DOUBLE_UCHAR : UCHAR;
+
+STRING_CONTENT_TRIPLE_DOUBLE_QUOTE //TODO not sure this is correct needs thorough testing
+  : '"""' (('"' | '""')? (~('"' | '\\') | ECHAR | UCHAR))* '"""'
+;
 
 mode SINGLE_QUOTE;
 CLOSE_SINGLE_QUOTE : '\'' -> popMode;
