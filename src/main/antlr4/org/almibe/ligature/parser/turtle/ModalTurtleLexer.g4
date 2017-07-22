@@ -1,11 +1,11 @@
 lexer grammar ModalTurtleLexer;
 
 //START TOKENS
-START_IRI : '<' -> mode(IRI);
-START_TRIPLE_SINGLE_QUOTE : '\'\'\'';// -> pushMode(TRIPLE_SINGLE_QUOTE);
-START_TRIPLE_DOUBLE_QUOTE : '"""';// -> pushMode(TRIPLE_DOUBLE_QUOTE);
-START_SINGLE_QUOTE : '\'';// -> pushMode(SINGLE_QUOTE);
-START_DOUBLE_QUOTE : '"';// -> pushMode(DOUBLE_QUOTE);
+START_IRI : '<' -> pushMode(IRI);
+START_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> pushMode(TRIPLE_SINGLE_QUOTE);
+START_TRIPLE_DOUBLE_QUOTE : '"""' -> pushMode(TRIPLE_DOUBLE_QUOTE);
+START_SINGLE_QUOTE : '\'' -> pushMode(SINGLE_QUOTE);
+START_DOUBLE_QUOTE : '"' -> pushMode(DOUBLE_QUOTE);
 START_SPARQL_BASE : [Bb] [Aa] [Ss] [Ee];// -> pushMode(SPARQL_BASE);
 START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx];// -> pushMode(SPARQL_PREFIX);
 START_BASE : '@base';// -> pushMode(BASE);
@@ -63,10 +63,6 @@ DOUBLE
 
 fragment EXPONENT
   : [eE] [+-]? [0-9]+
-;
-
-fragment STRING_LITERAL_SINGLE_QUOTE  //TODO move to own mode
-  : SINGLE_QUOTE (~('\u0027' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)* SINGLE_QUOTE /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
 ;
 
 //TODO move to own mode
@@ -141,10 +137,7 @@ COMMENT
 
 //MODES
 mode IRI;
-
-CLOSE_IRI
-  : '>'  -> mode(DEFAULT_MODE)
-;
+CLOSE_IRI : '>'  -> popMode;
 
 ABSOLUTE_IRI
   : SCHEME ':' (~('\u0000' .. '\u0020' | '<' | '>' | '"' | '{' | '}' | '|' | '^' | '`' | '\\') | UCHAR)+
@@ -160,17 +153,25 @@ RELATIVE_IRI
 
 mode TRIPLE_SINGLE_QUOTE;
 CLOSE_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> popMode;
+TRIPLE_SINGLE_QUOTE_ECHAR : ECHAR;
+TRIPLE_SINGLE_QUOTE_UCHAR : UCHAR;
 
 mode TRIPLE_DOUBLE_QUOTE;
 CLOSE_TRIPLE_DOUBLE_QUOTE : '"""' -> popMode;
+TRIPLE_DOUBLE_ECHAR : ECHAR;
+TRIPLE_DOUBLE_UCHAR : UCHAR;
 
 mode SINGLE_QUOTE;
 CLOSE_SINGLE_QUOTE : '\'' -> popMode;
+SINGLE_QUOTE_ECHAR : ECHAR;
+SINGLE_QUOTE_UCHAR : UCHAR;
+
+STRING_CONTENT_SINGLE_QUOTE
+  : (~('\u0027' | '\u005C' | '\u000A' | '\u000D') | ECHAR | UCHAR)+ /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
+;
 
 mode DOUBLE_QUOTE;
-
 CLOSE_DOUBLE_QUOTE : '"' -> popMode;
-
 DOUBLE_QUOTE_ECHAR : ECHAR;
 DOUBLE_QUOTE_UCHAR : UCHAR;
 
