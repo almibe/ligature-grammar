@@ -29,6 +29,19 @@ fragment LANG //possible dupe
   : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
+INTEGER
+  : [+-]? [0-9]+
+;
+
+DECIMAL
+  : [+-]? [0-9]* '.' [0-9]+
+;
+
+DOUBLE
+  : [+-]? ([0-9]+ '.' [0-9]* EXPONENT | '.' [0-9]+ EXPONENT | [0-9]+ EXPONENT)
+;
+
+
 PNAME_NS //TODO I don't think this is correct
   : PN_PREFIX? ':'
 ;
@@ -47,18 +60,6 @@ BLANK_NODE_LABEL //possible dupe
 
 BLANK_NODE_NAME //possible dupe
   : (PN_CHARS_U | '0' .. '9') ((PN_CHARS | '.')* PN_CHARS)?
-;
-
-INTEGER
-  : [+-]? [0-9]+
-;
-
-DECIMAL
-  : [+-]? [0-9]* '.' [0-9]+
-;
-
-DOUBLE
-  : [+-]? ([0-9]+ '.' [0-9]* EXPONENT | '.' [0-9]+ EXPONENT | [0-9]+ EXPONENT)
 ;
 
 fragment EXPONENT
