@@ -15,19 +15,19 @@ directive
 ;
 
 prefixID
-  : '@prefix' PNAME_NS START_IRI '.'
+  : '@prefix' PNAME_NS iriRef '.'
 ;
 
 base
-  : '@base' START_IRI '.'
+  : '@base' iriRef '.'
 ;
 
 sparqlBase
-  : START_SPARQL_BASE START_IRI
+  : START_SPARQL_BASE iriRef
 ;
 
 sparqlPrefix
-  : START_SPARQL_PREFIX PNAME_NS START_IRI
+  : START_SPARQL_PREFIX PNAME_NS iriRef
 ;
 
 triples
@@ -92,8 +92,12 @@ string
 ;
 
 iri
-  : '<' (ABSOLUTE_IRI | RELATIVE_IRI) '>'
+  : iriRef
   | PREFIXED_NAME
+;
+
+iriRef
+  : '<' (ABSOLUTE_IRI | RELATIVE_IRI) '>'
 ;
 
 blankNode

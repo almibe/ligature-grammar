@@ -6,10 +6,10 @@ START_TRIPLE_SINGLE_QUOTE : '\'\'\'' -> pushMode(TRIPLE_SINGLE_QUOTE);
 START_TRIPLE_DOUBLE_QUOTE : '"""' -> pushMode(TRIPLE_DOUBLE_QUOTE);
 START_SINGLE_QUOTE : '\'' -> pushMode(SINGLE_QUOTE);
 START_DOUBLE_QUOTE : '"' -> pushMode(DOUBLE_QUOTE);
-START_SPARQL_BASE : [Bb] [Aa] [Ss] [Ee];// -> pushMode(SPARQL_BASE);
-START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx];// -> pushMode(SPARQL_PREFIX);
-START_BASE : '@base';// -> pushMode(BASE);
-START_PREFIX : '@prefix';// -> pushMode(PREFIX);
+START_SPARQL_BASE : [Bb] [Aa] [Ss] [Ee] START_IRI; // OR MAYBE '<' -> pushMode(IRI);
+START_SPARQL_PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx] START_IRI;//'<' -> pushMode(IRI);
+START_BASE : '@base' -> pushMode(BASE);
+START_PREFIX : '@prefix' -> pushMode(PREFIX);
 
 //COMMON TOKENS/FRAGMENTS
 PERIOD : '.';
@@ -178,3 +178,11 @@ DOUBLE_QUOTE_UCHAR : UCHAR;
 STRING_CONTENT_DOUBLE_QUOTE
   : (~('\u0022' | '\u005C' | '\u000A' | '\u000D') | DOUBLE_QUOTE_ECHAR | DOUBLE_QUOTE_UCHAR)+ /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
 ;
+
+mode BASE;
+END_OF_BASE : PERIOD -> popMode;
+START_BASE_IRI : START_IRI;
+
+mode PREFIX;
+END_OF_PERFIX : PERIOD -> popMode;
+START_PREFIX_IRI : START_IRI;
