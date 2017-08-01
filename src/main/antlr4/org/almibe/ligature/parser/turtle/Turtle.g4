@@ -31,7 +31,8 @@ sparqlPrefix
 ;
 
 triples
-  : subject predicateObjectList | blankNodePropertyList predicateObjectList?
+  : subject predicateObjectList
+  | blankNodePropertyList predicateObjectList?
 ;
 
 predicateObjectList
