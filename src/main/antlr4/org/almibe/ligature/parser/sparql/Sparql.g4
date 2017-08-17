@@ -1,6 +1,6 @@
 parser grammar Sparql;
 
-//options { tokenVocab = ModalSparqlLexer; }
+options { tokenVocab = ModalSparqlLexer; }
 
 queryUnit
   : query
