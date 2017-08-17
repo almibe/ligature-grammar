@@ -388,7 +388,7 @@ valueLogical
 ;
 
 relationalExpression
-  : numericExpression ( '=' numericExpression | '!=' numericExpression | '<' numericExpression | '>' numericExpression | '<=' numericExpression | '>=' numericExpression | 'IN' nxpressionList | 'NOT' 'IN' nxpressionList )?
+  : numericExpression ( '=' numericExpression | '!=' numericExpression | '<' numericExpression | '>' numericExpression | '<=' numericExpression | '>=' numericExpression | 'IN' expressionList | 'NOT' 'IN' expressionList )?
 ;
 
 numericExpression
@@ -414,7 +414,7 @@ primaryExpression
   : brackettedExpression
   | builtInCall
   | iriOrFunction
-  | rDFLiteral
+  | rdfLiteral
   | numericLiteral
   | booleanLiteral
   | var
@@ -427,64 +427,148 @@ brackettedExpression
 builtInCall
   : aggregate
     | 'STR' '(' expression ')'
-    | 'LANG' '(' expresion ')'
-    | 'LANGMATCHES' '(' expresion ',' expresion ')'
-    | 'DATATYPE' '(' expresion ')'
+    | 'LANG' '(' expression ')'
+    | 'LANGMATCHES' '(' expression ',' expression ')'
+    | 'DATATYPE' '(' expression ')'
     | 'BOUND' '(' Var ')'
-    | 'IRI' '(' expresion ')'
-    | 'URI' '(' expresion ')'
-    | 'BNODE' ( '(' expresion ')' | NIL )
+    | 'IRI' '(' expression ')'
+    | 'URI' '(' expression ')'
+    | 'BNODE' ( '(' expression ')' | NIL )
     | 'RAND' NIL
-    | 'ABS' '(' expresion ')'
-    | 'CEIL' '(' expresion ')'
-    | 'FLOOR' '(' expresion ')'
-    | 'ROUND' '(' expresion ')'
-    | 'CONCAT' expresionList
+    | 'ABS' '(' expression ')'
+    | 'CEIL' '(' expression ')'
+    | 'FLOOR' '(' expression ')'
+    | 'ROUND' '(' expression ')'
+    | 'CONCAT' expressionList
     | substringExpression
-    | 'STRLEN' '(' expresion ')'
+    | 'STRLEN' '(' expression ')'
     | strReplaceExpression
-    | 'UCASE' '(' expresion ')'
-    | 'LCASE' '(' expresion ')'
-    | 'ENCODE_FOR_URI' '(' expresion ')'
-    | 'CONTAINS' '(' expresion ',' expresion ')'
-    | 'STRSTARTS' '(' expresion ',' expresion ')'
-    | 'STRENDS' '(' expresion ',' expresion ')'
-    | 'STRBEFORE' '(' expresion ',' expresion ')'
-    | 'STRAFTER' '(' expresion ',' expresion ')'
-    | 'YEAR' '(' expresion ')'
-    | 'MONTH' '(' expresion ')'
-    | 'DAY' '(' expresion ')'
-    | 'HOURS' '(' expresion ')'
-    | 'MINUTES' '(' expresion ')'
-    | 'SECONDS' '(' expresion ')'
-    | 'TIMEZONE' '(' expresion ')'
-    | 'TZ' '(' expresion ')'
+    | 'UCASE' '(' expression ')'
+    | 'LCASE' '(' expression ')'
+    | 'ENCODE_FOR_URI' '(' expression ')'
+    | 'CONTAINS' '(' expression ',' expression ')'
+    | 'STRSTARTS' '(' expression ',' expression ')'
+    | 'STRENDS' '(' expression ',' expression ')'
+    | 'STRBEFORE' '(' expression ',' expression ')'
+    | 'STRAFTER' '(' expression ',' expression ')'
+    | 'YEAR' '(' expression ')'
+    | 'MONTH' '(' expression ')'
+    | 'DAY' '(' expression ')'
+    | 'HOURS' '(' expression ')'
+    | 'MINUTES' '(' expression ')'
+    | 'SECONDS' '(' expression ')'
+    | 'TIMEZONE' '(' expression ')'
+    | 'TZ' '(' expression ')'
     | 'NOW' NIL
     | 'UUID' NIL
     | 'STRUUID' NIL
-    | 'MD5' '(' expresion ')'
-    | 'SHA1' '(' expresion ')'
-    | 'SHA256' '(' expresion ')'
-    | 'SHA384' '(' expresion ')'
-    | 'SHA512' '(' expresion ')'
-    | 'COALESCE' expresionList
-    | 'IF' '(' expresion ',' expresion ',' expresion ')'
-    | 'STRLANG' '(' expresion ',' expresion ')'
-    | 'STRDT' '(' expresion ',' expresion ')'
-    | 'sameTerm' '(' expresion ',' expresion ')'
-    | 'isIRI' '(' expresion ')'
-    | 'isURI' '(' expresion ')'
-    | 'isBLANK' '(' expresion ')'
-    | 'isLITERAL' '(' expresion ')'
-    | 'isNUMERIC' '(' expresion ')'
+    | 'MD5' '(' expression ')'
+    | 'SHA1' '(' expression ')'
+    | 'SHA256' '(' expression ')'
+    | 'SHA384' '(' expression ')'
+    | 'SHA512' '(' expression ')'
+    | 'COALESCE' expressionList
+    | 'IF' '(' expression ',' expression ',' expression ')'
+    | 'STRLANG' '(' expression ',' expression ')'
+    | 'STRDT' '(' expression ',' expression ')'
+    | 'sameTerm' '(' expression ',' expression ')'
+    | 'isIRI' '(' expression ')'
+    | 'isURI' '(' expression ')'
+    | 'isBLANK' '(' expression ')'
+    | 'isLITERAL' '(' expression ')'
+    | 'isNUMERIC' '(' expression ')'
     | regexExpression
     | existsFunc
     | notExistsFunc
 ;
 
+regexExpression
+  : 'REGEX' '(' expression ',' expression ( ',' expression )? ')'
+;
+
+substringExpression
+  : 'SUBSTR' '(' expression ',' expression ( ',' expression )? ')'
+;
+
+strReplaceExpression
+  : 'REPLACE' '(' expression ',' expression ',' expression ( ',' expression )? ')'
+;
+
+existsFunc
+  : 'EXISTS' groupGraphPattern
+;
+
+notExistsFunc
+  : 'NOT' 'EXISTS' groupGraphPattern
+;
+
+aggregate
+  : 'COUNT' '(' 'DISTINCT'? ( '*' | expression ) ')'
+  | 'SUM' '(' 'DISTINCT'? expression ')'
+  | 'MIN' '(' 'DISTINCT'? expression ')'
+  | 'MAX' '(' 'DISTINCT'? expression ')'
+  | 'AVG' '(' 'DISTINCT'? expression ')'
+  | 'SAMPLE' '(' 'DISTINCT'? expression ')'
+  | 'GROUP_CONCAT' '(' 'DISTINCT'? expression ( ';' 'SEPARATOR' '=' string )? ')'
+;
+
+iriOrFunction
+  : iri argList?
+;
+
+rdfLiteral
+  : string ( LANGTAG | ( '^^' iri ) )?
+;
+
+numericLiteral
+  : numericLiteralUnsigned
+  | numericLiteralPositive
+  | numericLiteralNegative
+;
+
+numericLiteralUnsigned
+  : INTEGER
+  | DECIMAL
+  | DOUBLE
+;
+
+numericLiteralPositive
+  : INTEGER_POSITIVE
+  | DECIMAL_POSITIVE
+  | DOUBLE_POSITIVE
+;
+
+numericLiteralNegative
+  : INTEGER_NEGATIVE
+  | DECIMAL_NEGATIVE
+  | DOUBLE_NEGATIVE
+;
+
+booleanLiteral
+  : 'true'
+  | 'false'
+;
+
+string
+  : STRING_LITERAL1
+  | STRING_LITERAL2
+  | STRING_LITERAL_LONG1
+  | STRING_LITERAL_LONG2
+;
+
 iri
   : iriRef
   | PREFIXED_NAME
+;
+
+prefixedName
+  : PNAME_LN
+  | PNAME_NS
+;
+
+blankNode
+  : BLANK_NODE_LABEL
+  | ANON
 ;
 
 iriRef
