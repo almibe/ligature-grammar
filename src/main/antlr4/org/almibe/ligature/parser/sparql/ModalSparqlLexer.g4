@@ -50,6 +50,19 @@ OPEN_BRACKET: '[';
 CLOSE_BRACKET: ']';
 LOGICAL_OR: '||';
 LOGICAL_AND: '&&';
+EQUAL: '=';
+NOT_EQUAL: '!=';
+LESS_THAN: '<';
+GREATER_THAN: '>';
+LESS_THAN_OR_EQUAL: '<=';
+GREATER_THAN_OR_EQUAL: '>=';
+IN: [Ii] [Nn];
+NOT: [Nn] [Oo] [Tt];
+MINUS_SIGN : '-';
+COUNT: [Cc] [Oo] [Uu] [Nn] [Tt];
+LITERAL_TYPE : '^^';
+TRUE: 'true';
+FALSE: 'false';
 
 //TOKENS FROM SPEC
 PNAME_NS

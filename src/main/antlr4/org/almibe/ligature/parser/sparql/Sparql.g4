@@ -77,7 +77,10 @@ groupClause
 ;
 
 groupCondition
-  : builtInCall | functionCall | OPEN_PAREN expression ( AS var )? CLOSE_PAREN | var
+  : builtInCall
+  | functionCall
+  | OPEN_PAREN expression ( AS var )? CLOSE_PAREN
+  | var
 ;
 
 havingClause
@@ -394,7 +397,7 @@ valueLogical
 ;
 
 relationalExpression
-  : numericExpression ( '=' numericExpression | '!=' numericExpression | '<' numericExpression | '>' numericExpression | '<=' numericExpression | '>=' numericExpression | 'IN' expressionList | 'NOT' 'IN' expressionList )?
+  : numericExpression ( EQUAL numericExpression | NOT_EQUAL numericExpression | LESS_THAN numericExpression | GREATER_THAN numericExpression | LESS_THAN_OR_EQUAL numericExpression | GREATER_THAN_OR_EQUAL numericExpression | IN expressionList | NOT IN expressionList )?
 ;
 
 numericExpression
@@ -402,17 +405,17 @@ numericExpression
 ;
 
 additiveExpression
-  : multiplicativeExpression ( '+' multiplicativeExpression | '-' multiplicativeExpression | ( numericLiteralPositive | numericLiteralNegative ) ( ( '*' unaryExpression ) | ( '/' unaryExpression ) )* )*
+  : multiplicativeExpression ( PLUS multiplicativeExpression | MINUS_SIGN multiplicativeExpression | ( numericLiteralPositive | numericLiteralNegative ) ( ( STAR unaryExpression ) | ( FOWARD_SLASH unaryExpression ) )* )*
 ;
 
 multiplicativeExpression
-  : unaryExpression ( '*' unaryExpression | '/' unaryExpression )*
+  : unaryExpression ( STAR unaryExpression | FORWARD_SLASH unaryExpression )*
 ;
 
 unaryExpression
-  : '!' primaryExpression
-  | '+' primaryExpression
-  | '-' primaryExpression
+  : EXCLAMATION primaryExpression
+  | PLUS primaryExpression
+  | MINUS_SIGN primaryExpression
   | primaryExpression
 ;
 
@@ -427,95 +430,95 @@ primaryExpression
 ;
 
 brackettedExpression
-  : '(' expression ')'
+  : OPEN_PAREN expression CLOSE_PAREN
 ;
 
 builtInCall
-  : aggregate
-    | 'STR' '(' expression ')'
-    | 'LANG' '(' expression ')'
-    | 'LANGMATCHES' '(' expression ',' expression ')'
-    | 'DATATYPE' '(' expression ')'
-    | 'BOUND' '(' Var ')'
-    | 'IRI' '(' expression ')'
-    | 'URI' '(' expression ')'
-    | 'BNODE' ( '(' expression ')' | NIL )
-    | 'RAND' NIL
-    | 'ABS' '(' expression ')'
-    | 'CEIL' '(' expression ')'
-    | 'FLOOR' '(' expression ')'
-    | 'ROUND' '(' expression ')'
-    | 'CONCAT' expressionList
-    | substringExpression
-    | 'STRLEN' '(' expression ')'
-    | strReplaceExpression
-    | 'UCASE' '(' expression ')'
-    | 'LCASE' '(' expression ')'
-    | 'ENCODE_FOR_URI' '(' expression ')'
-    | 'CONTAINS' '(' expression ',' expression ')'
-    | 'STRSTARTS' '(' expression ',' expression ')'
-    | 'STRENDS' '(' expression ',' expression ')'
-    | 'STRBEFORE' '(' expression ',' expression ')'
-    | 'STRAFTER' '(' expression ',' expression ')'
-    | 'YEAR' '(' expression ')'
-    | 'MONTH' '(' expression ')'
-    | 'DAY' '(' expression ')'
-    | 'HOURS' '(' expression ')'
-    | 'MINUTES' '(' expression ')'
-    | 'SECONDS' '(' expression ')'
-    | 'TIMEZONE' '(' expression ')'
-    | 'TZ' '(' expression ')'
-    | 'NOW' NIL
-    | 'UUID' NIL
-    | 'STRUUID' NIL
-    | 'MD5' '(' expression ')'
-    | 'SHA1' '(' expression ')'
-    | 'SHA256' '(' expression ')'
-    | 'SHA384' '(' expression ')'
-    | 'SHA512' '(' expression ')'
-    | 'COALESCE' expressionList
-    | 'IF' '(' expression ',' expression ',' expression ')'
-    | 'STRLANG' '(' expression ',' expression ')'
-    | 'STRDT' '(' expression ',' expression ')'
-    | 'sameTerm' '(' expression ',' expression ')'
-    | 'isIRI' '(' expression ')'
-    | 'isURI' '(' expression ')'
-    | 'isBLANK' '(' expression ')'
-    | 'isLITERAL' '(' expression ')'
-    | 'isNUMERIC' '(' expression ')'
-    | regexExpression
-    | existsFunc
-    | notExistsFunc
-;
-
-regexExpression
-  : 'REGEX' '(' expression ',' expression ( ',' expression )? ')'
-;
-
-substringExpression
-  : 'SUBSTR' '(' expression ',' expression ( ',' expression )? ')'
-;
-
-strReplaceExpression
-  : 'REPLACE' '(' expression ',' expression ',' expression ( ',' expression )? ')'
-;
-
-existsFunc
-  : 'EXISTS' groupGraphPattern
-;
-
-notExistsFunc
-  : 'NOT' 'EXISTS' groupGraphPattern
-;
-
+  : aggregate;
+//  | 'STR' '(' expression ')'
+//  | 'LANG' '(' expression ')'
+//  | 'LANGMATCHES' '(' expression ',' expression ')'
+//  | 'DATATYPE' '(' expression ')'
+//  | 'BOUND' '(' Var ')'
+//  | 'IRI' '(' expression ')'
+//  | 'URI' '(' expression ')'
+//  | 'BNODE' ( '(' expression ')' | NIL )
+//  | 'RAND' NIL
+//  | 'ABS' '(' expression ')'
+//  | 'CEIL' '(' expression ')'
+//  | 'FLOOR' '(' expression ')'
+//  | 'ROUND' '(' expression ')'
+//  | 'CONCAT' expressionList
+//  | substringExpression
+//  | 'STRLEN' '(' expression ')'
+//  | strReplaceExpression
+//  | 'UCASE' '(' expression ')'
+//  | 'LCASE' '(' expression ')'
+//  | 'ENCODE_FOR_URI' '(' expression ')'
+//  | 'CONTAINS' '(' expression ',' expression ')'
+//  | 'STRSTARTS' '(' expression ',' expression ')'
+//  | 'STRENDS' '(' expression ',' expression ')'
+//  | 'STRBEFORE' '(' expression ',' expression ')'
+//  | 'STRAFTER' '(' expression ',' expression ')'
+//  | 'YEAR' '(' expression ')'
+//  | 'MONTH' '(' expression ')'
+//  | 'DAY' '(' expression ')'
+//  | 'HOURS' '(' expression ')'
+//  | 'MINUTES' '(' expression ')'
+//  | 'SECONDS' '(' expression ')'
+//  | 'TIMEZONE' '(' expression ')'
+//  | 'TZ' '(' expression ')'
+//  | 'NOW' NIL
+//  | 'UUID' NIL
+//  | 'STRUUID' NIL
+//  | 'MD5' '(' expression ')'
+//  | 'SHA1' '(' expression ')'
+//  | 'SHA256' '(' expression ')'
+//  | 'SHA384' '(' expression ')'
+//  | 'SHA512' '(' expression ')'
+//  | 'COALESCE' expressionList
+//  | 'IF' '(' expression ',' expression ',' expression ')'
+//  | 'STRLANG' '(' expression ',' expression ')'
+//  | 'STRDT' '(' expression ',' expression ')'
+//  | 'sameTerm' '(' expression ',' expression ')'
+//  | 'isIRI' '(' expression ')'
+//  | 'isURI' '(' expression ')'
+//  | 'isBLANK' '(' expression ')'
+//  | 'isLITERAL' '(' expression ')'
+//  | 'isNUMERIC' '(' expression ')'
+//  | regexExpression
+//  | existsFunc
+//  | notExistsFunc
+//;
+//
+//regexExpression
+//  : 'REGEX' '(' expression ',' expression ( ',' expression )? ')'
+//;
+//
+//substringExpression
+//  : 'SUBSTR' '(' expression ',' expression ( ',' expression )? ')'
+//;
+//
+//strReplaceExpression
+//  : 'REPLACE' '(' expression ',' expression ',' expression ( ',' expression )? ')'
+//;
+//
+//existsFunc
+//  : 'EXISTS' groupGraphPattern
+//;
+//
+//notExistsFunc
+//  : 'NOT' 'EXISTS' groupGraphPattern
+//;
+//
 aggregate
-  : 'COUNT' '(' 'DISTINCT'? ( '*' | expression ) ')'
-  | 'SUM' '(' 'DISTINCT'? expression ')'
-  | 'MIN' '(' 'DISTINCT'? expression ')'
-  | 'MAX' '(' 'DISTINCT'? expression ')'
-  | 'AVG' '(' 'DISTINCT'? expression ')'
-  | 'SAMPLE' '(' 'DISTINCT'? expression ')'
-  | 'GROUP_CONCAT' '(' 'DISTINCT'? expression ( ';' 'SEPARATOR' '=' string )? ')'
+  : COUNT OPEN_PAREN DISTINCT? ( STAR | expression ) CLOSE_PAREN
+//  | 'SUM' '(' 'DISTINCT'? expression ')'
+//  | 'MIN' '(' 'DISTINCT'? expression ')'
+//  | 'MAX' '(' 'DISTINCT'? expression ')'
+//  | 'AVG' '(' 'DISTINCT'? expression ')'
+//  | 'SAMPLE' '(' 'DISTINCT'? expression ')'
+//  | 'GROUP_CONCAT' '(' 'DISTINCT'? expression ( ';' 'SEPARATOR' '=' string )? ')'
 ;
 
 iriOrFunction
@@ -523,7 +526,7 @@ iriOrFunction
 ;
 
 rdfLiteral
-  : string ( LANGTAG | ( '^^' iri ) )?
+  : string ( LANGTAG | ( LITERAL_TYPE iri ) )?
 ;
 
 numericLiteral
@@ -551,8 +554,8 @@ numericLiteralNegative
 ;
 
 booleanLiteral
-  : 'true'
-  | 'false'
+  : TRUE
+  | FALSE
 ;
 
 string
@@ -578,5 +581,5 @@ blankNode
 ;
 
 iriRef
-  : '<' (ABSOLUTE_IRI | RELATIVE_IRI) '>'
+  : LESS_THAN (ABSOLUTE_IRI | RELATIVE_IRI) GREATER_THAN
 ;
