@@ -24,6 +24,32 @@ HAVING: [Hh] [Aa] [Vv] [Ii] [Nn] [Gg];
 ORDER: [Oo] [Rr] [Dd] [Ee] [Rr];
 ASC: [Aa] [Ss] [Cc];
 DESC: [Dd] [Ee] [Ss] [Cc];
+LIMIT: [Ll] [Ii] [Mm] [Ii] [Tt];
+OFFSET: [Oo] [Ff] [Ff] [Ss] [Ee] [Tt];
+VALUES: [Vv] [Aa] [Ll] [Uu] [Ee] [Ss];
+PERIOD: '.';
+OPTIONAL: [Oo] [Pp] [Tt] [Ii] [Oo] [Nn] [Aa] [Ll];
+GRAPH: [Gg] [Rr] [Aa] [Pp] [Hh];
+SERVICE: [Ss] [Ee] [Rr] [Vv] [Ii] [Cc] [Ee];
+SILENT: [Ss] [Ii] [Ll] [Ee] [Nn] [Tt];
+BIND: [Bb] [Ii] [Nn] [Dd];
+UNDEF: [Uu] [Nn] [Dd] [Ee] [Ff];
+MINUS: [Mm] [Ii] [Nn] [Uu] [Ss];
+UNION: [Uu] [Nn] [Ii] [Oo] [Nn];
+FILTER: [Ff] [Ii] [Ll] [Tt] [Ee] [Rr];
+COMMA: ',';
+SEMICOLON: ';';
+A: 'a';
+BAR: '|';
+FOWARD_SLASH: '/';
+CARET: '^';
+QUESTION_MARK: '?';
+PLUS: '+';
+EXCLAMATION: '!';
+OPEN_BRACKET: '[';
+CLOSE_BRACKET: ']';
+LOGICAL_OR: '||';
+LOGICAL_AND: '&&';
 
 //TOKENS FROM SPEC
 PNAME_NS

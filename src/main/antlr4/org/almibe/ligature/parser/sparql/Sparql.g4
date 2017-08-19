@@ -103,31 +103,31 @@ limitOffsetClauses
 ;
 
 limitClause
-  : 'LIMIT' INTEGER
+  : LIMIT INTEGER
 ;
 
 offsetClause
-  : 'OFFSET' INTEGER
+  : OFFSET INTEGER
 ;
 
 valuesClause
-  : ( 'VALUES' dataBlock )?
+  : ( VALUES dataBlock )?
 ;
 
 triplesTemplate
-  : triplesSameSubject ( '.' triplesTemplate? )?
+  : triplesSameSubject ( PERIOD triplesTemplate? )?
 ;
 
 groupGraphPattern
-  : '{' ( subSelect | groupGraphPatternSub ) '}'
+  : OPEN_BRACE ( subSelect | groupGraphPatternSub ) CLOSE_BRACE
 ;
 
 groupGraphPatternSub
-  : triplesBlock? ( graphPatternNotTriples '.'? triplesBlock? )*
+  : triplesBlock? ( graphPatternNotTriples PERIOD ? triplesBlock? )*
 ;
 
 triplesBlock
-  : triplesSameSubjectPath ( '.' triplesBlock? )?
+  : triplesSameSubjectPath ( PERIOD triplesBlock? )?
 ;
 
 graphPatternNotTriples
@@ -142,23 +142,23 @@ graphPatternNotTriples
 ;
 
 optionalGraphPattern
-  : 'OPTIONAL' groupGraphPattern
+  : OPTIONAL groupGraphPattern
 ;
 
 graphGraphPattern
-  : 'GRAPH' varOrIri groupGraphPattern
+  : GRAPH varOrIri groupGraphPattern
 ;
 
 serviceGraphPattern
-  : 'SERVICE' 'SILENT'? varOrIri groupGraphPattern
+  : SERVICE SILENT? varOrIri groupGraphPattern
 ;
 
 bind
-  : 'BIND' '(' expression 'AS' var ')'
+  : BIND OPEN_PAREN expression AS var CLOSE_PAREN
 ;
 
 inlineData
-  : 'VALUES' dataBlock
+  : VALUES dataBlock
 ;
 
 dataBlock
@@ -166,31 +166,33 @@ dataBlock
 ;
 
 inlineDataOneVar
-  : var '{' dataBlockValue* '}'
+  : var OPEN_BRACE dataBlockValue* CLOSE_BRACE
 ;
 
 inlineDataFull
-  : ( NIL | '(' var* ')' ) '{' ( '(' dataBlockValue* ')' | NIL )* '}'
+  : ( NIL | OPEN_PAREN var* CLOSE_PAREN ) OPEN_BRACE ( OPEN_PAREN dataBlockValue* CLOSE_PAREN | NIL )* CLOSE_BRACE
 ;
 
 dataBlockValue
-  : iri | rdfLiteral | numericLiteral | booleanLiteral | 'UNDEF'
+  : iri | rdfLiteral | numericLiteral | booleanLiteral | UNDEF
 ;
 
 minusGraphPattern
-  : 'MINUS' groupGraphPattern
+  : MINUS groupGraphPattern
 ;
 
 groupOrUnionGraphPattern
-  : groupGraphPattern ( 'UNION' groupGraphPattern )*
+  : groupGraphPattern ( UNION groupGraphPattern )*
 ;
 
 filter
-  : 'FILTER' constraint
+  : FILTER constraint
 ;
 
 constraint
-  : brackettedExpression | builtInCall | functionCall
+  : brackettedExpression
+  | builtInCall
+  | functionCall
 ;
 
 functionCall
@@ -198,19 +200,21 @@ functionCall
 ;
 
 argList
-  : NIL | '(' 'DISTINCT'? expression ( ',' expression )* ')'
+  : NIL
+  | OPEN_PAREN DISTINCT? expression ( COMMA expression )* CLOSE_PAREN
 ;
 
 expressionList
-  : NIL | '(' expression ( ',' expression )* ')'
+  : NIL
+  | OPEN_PAREN expression ( COMMA expression )* CLOSE_PAREN
 ;
 
 constructTemplate
-  : '{' constructTriples? '}'
+  : OPEN_BRACE constructTriples? CLOSE_BRACE
 ;
 
 constructTriples
-  : triplesSameSubject ( '.' constructTriples? )?
+  : triplesSameSubject ( PERIOD constructTriples? )?
 ;
 
 triplesSameSubject
@@ -223,15 +227,15 @@ propertyList
 ;
 
 propertyListNotEmpty
-  : verb objectList ( ';' ( verb objectList )? )*
+  : verb objectList ( SEMICOLON ( verb objectList )? )*
 ;
 
 verb
-  : varOrIri | 'a'
+  : varOrIri | A
 ;
 
 objectList
-  : object ( ',' object )*
+  : object ( COMMA object )*
 ;
 
 object
@@ -248,7 +252,7 @@ propertyListPath
 ;
 
 propertyListPathNotEmpty
-  : ( verbPath | verbSimple ) objectListPath ( ';' ( ( verbPath | verbSimple ) objectList )? )*
+  : ( verbPath | verbSimple ) objectListPath ( SEMICOLON ( ( verbPath | verbSimple ) objectList )? )*
 ;
 
 verbPath
@@ -260,7 +264,7 @@ verbSimple
 ;
 
 objectListPath
-  : objectPath ( ',' objectPath )*
+  : objectPath ( COMMA objectPath )*
 ;
 
 objectPath
@@ -272,11 +276,11 @@ path
 ;
 
 pathAlternative
-  : pathSequence ( '|' pathSequence )*
+  : pathSequence ( BAR pathSequence )*
 ;
 
 pathSequence
-  : pathEltOrInverse ( '/' pathEltOrInverse )*
+  : pathEltOrInverse ( FORWARD_SLASH pathEltOrInverse )*
 ;
 
 pathElt
@@ -285,29 +289,31 @@ pathElt
 
 pathEltOrInverse
   : pathElt
-  | '^' pathElt
+  | CARET pathElt
 ;
 
 pathMod
-  : '?' | '*' | '+'
+  : QUESTION_MARK
+  | STAR
+  | PLUS
 ;
 
 pathPrimary
   : iri
-  | 'a'
-  | '!' pathNegatedPropertySet
-  | '(' path ')'
+  | A
+  | EXCLAMATION pathNegatedPropertySet
+  | OPEN_PAREN path CLOSE_PAREN
 ;
 
 pathNegatedPropertySet
   : pathOneInPropertySet
-  | '(' ( pathOneInPropertySet ( '|' pathOneInPropertySet )* )? ')'
+  | OPEN_PAREN ( pathOneInPropertySet ( BAR pathOneInPropertySet )* )? CLOSE_PAREN
 ;
 
 pathOneInPropertySet
   : iri
-  | 'a'
-  | '^' ( iri | 'a' )
+  | A
+  | CARET ( iri | A )
 ;
 
 integer
@@ -320,7 +326,7 @@ triplesNode
 ;
 
 blankNodePropertyList
-  : '[' propertyListNotEmpty ']'
+  : OPEN_BRACKET propertyListNotEmpty CLOSE_BRACKET
 ;
 
 triplesNodePath
@@ -329,15 +335,15 @@ triplesNodePath
 ;
 
 blankNodePropertyListPath
-  : '[' propertyListPathNotEmpty ']'
+  : OPEN_BRACKET propertyListPathNotEmpty CLOSE_BRACKET
 ;
 
 collection
-  : '(' graphNode+ ')'
+  : OPEN_PAREN graphNode+ CLOSE_PAREN
 ;
 
 collectionPath
-  : '(' graphNodePath+ ')'
+  : OPEN_PAREN graphNodePath+ CLOSE_PAREN
 ;
 
 graphNode
@@ -376,11 +382,11 @@ expression
 ;
 
 conditionalOrExpression
-  : conditionalAndExpression ( '||' conditionalAndExpression )*
+  : conditionalAndExpression ( LOGICAL_OR conditionalAndExpression )*
 ;
 
 conditionalAndExpression
-  : valueLogical ( '&&' valueLogical )*
+  : valueLogical ( LOGICAL_AND valueLogical )*
 ;
 
 valueLogical
