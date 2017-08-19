@@ -15,11 +15,11 @@ prologue
 ;
 
 baseDecl
-  : 'BASE' iriRef
+  : BASE iriRef
 ;
 
 prefixDecl
-  : 'PREFIX' PNAME_NS iriRef
+  : PREFIX PNAME_NS iriRef
 ;
 
 selectQuery
@@ -31,7 +31,7 @@ subSelect
 ;
 
 selectClause
-  : 'SELECT' ( 'DISTINCT' | 'REDUCED' )? ( ( var | ( '(' expression 'AS' var ')' ) )+ | '*' )
+  : SELECT ( DISTINCT | REDUCED )? ( ( var | ( OPEN_PAREN expression AS var CLOSE_PAREN ) )+ | STAR )
 ;
 
 constructQuery

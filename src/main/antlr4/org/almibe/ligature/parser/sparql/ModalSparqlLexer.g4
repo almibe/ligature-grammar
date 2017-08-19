@@ -1,5 +1,17 @@
 lexer grammar ModalSparqlLexer;
 
+//COMMON TOKENS/FRAGMENTS
+BASE : [Bb] [Aa] [Ss] [Ee];
+PREFIX : [Pp] [Rr] [Ee] [Ff] [Ii] [Xx];
+SELECT : [Ss] [Ee] [Ll] [Ee] [Cc] [Tt];
+DISTINCT: [Dd] [Ii] [Ss] [Tt] [Ii] [Nn] [Cc] [Tt];
+REDUCED: [Rr] [Ee] [Dd] [Uu] [Cc] [Ee] [Dd];
+OPEN_PAREN: '(';
+CLOSE_PAREN: ')';
+AS: [Aa] [Ss];
+STAR: '*';
+
+//TOKENS FROM SPEC
 PNAME_NS
   : PN_PREFIX? ':'
 ;
@@ -151,5 +163,5 @@ HEX
 ;
 
 PN_LOCAL_ESC
-  : '\'' ( '_' | '~' | '.' | '-' | '!' | '$' | '&' | | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%' )
+  : '\\' ( '_' | '~' | '.' | '-' | '!' | '$' | '&' | | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%' )
 ;
