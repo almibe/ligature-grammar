@@ -10,6 +10,20 @@ OPEN_PAREN: '(';
 CLOSE_PAREN: ')';
 AS: [Aa] [Ss];
 STAR: '*';
+CONSTRUCT: [Cc] [Oo] [Nn] [Ss] [Tt] [Rr] [Uu] [Cc] [Tt];
+WHERE: [Ww] [Hh] [Ee] [Rr] [Ee];
+OPEN_BRACE: '{';
+CLOSE_BRACE: '}';
+DESCRIBE: [Dd] [Ee] [Ss] [Cc] [Rr] [Ii] [Bb] [Ee];
+ASK: [Aa] [Ss] [Kk];
+FROM: [Ff] [Rr] [Oo] [Mm];
+NAMED: [Nn] [Aa] [Mm] [Ee] [Dd];
+GROUP: [Gg] [Rr] [Oo] [Uu] [Pp];
+BY: [Bb] [Yy];
+HAVING: [Hh] [Aa] [Vv] [Ii] [Nn] [Gg];
+ORDER: [Oo] [Rr] [Dd] [Ee] [Rr];
+ASC: [Aa] [Ss] [Cc];
+DESC: [Dd] [Ee] [Ss] [Cc];
 
 //TOKENS FROM SPEC
 PNAME_NS

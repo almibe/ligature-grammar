@@ -35,21 +35,21 @@ selectClause
 ;
 
 constructQuery
-  : 'CONSTRUCT'
+  : CONSTRUCT
     ( constructTemplate datasetClause* whereClause solutionModifier
-    | datasetClause* 'WHERE' '{' triplesTemplate? '}' solutionModifier )
+    | datasetClause* WHERE OPEN_BRACE triplesTemplate? CLOSE_BRACE solutionModifier )
 ;
 
 describeQuery
-  : 'DESCRIBE' ( varOrIri+ | '*' ) datasetClause* whereClause? solutionModifier
+  : DESCRIBE ( varOrIri+ | STAR ) datasetClause* whereClause? solutionModifier
 ;
 
 askQuery
-  : 'ASK' datasetClause* whereClause solutionModifier
+  : ASK datasetClause* whereClause solutionModifier
 ;
 
 datasetClause
-  : 'FROM' ( defaultGraphClause | namedGraphClause )
+  : FROM ( defaultGraphClause | namedGraphClause )
 ;
 
 defaultGraphClause
@@ -57,7 +57,7 @@ defaultGraphClause
 ;
 
 namedGraphClause
-  : 'NAMED' sourceSelector
+  : NAMED sourceSelector
 ;
 
 sourceSelector
@@ -65,7 +65,7 @@ sourceSelector
 ;
 
 whereClause
-  : 'WHERE'? groupGraphPattern
+  : WHERE? groupGraphPattern
 ;
 
 solutionModifier
@@ -73,15 +73,15 @@ solutionModifier
 ;
 
 groupClause
-  : 'GROUP' 'BY' groupCondition+
+  : GROUP BY groupCondition+
 ;
 
 groupCondition
-  : builtInCall | functionCall | '(' expression ( 'AS' var )? ')' | var
+  : builtInCall | functionCall | OPEN_PAREN expression ( AS var )? CLOSE_PAREN | var
 ;
 
 havingClause
-  : 'HAVING' havingCondition+
+  : HAVING havingCondition+
 ;
 
 havingCondition
@@ -89,11 +89,11 @@ havingCondition
 ;
 
 orderClause
-  : 'ORDER' 'BY' orderCondition+
+  : ORDER BY orderCondition+
 ;
 
 orderCondition
-  : ( ( 'ASC' | 'DESC' ) brackettedExpression )
+  : ( ( ASC | DESC ) brackettedExpression )
   | ( constraint | var )
 ;
 
