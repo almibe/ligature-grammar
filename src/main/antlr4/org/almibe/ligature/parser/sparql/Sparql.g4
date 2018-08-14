@@ -76,50 +76,52 @@ solutionModifier //18
   : groupClause? havingClause? orderClause? limitOffsetClauses?
 ;
 
-groupClause
+groupClause  //19
   : GROUP BY groupCondition+
 ;
 
-groupCondition
+groupCondition //20
   : builtInCall
   | functionCall
   | OPEN_PAREN expression ( AS var )? CLOSE_PAREN
   | var
 ;
 
-havingClause
+havingClause //21
   : HAVING havingCondition+
 ;
 
-havingCondition
+havingCondition //22
   : constraint
 ;
 
-orderClause
+orderClause //23
   : ORDER BY orderCondition+
 ;
 
-orderCondition
+orderCondition //24
   : ( ( ASC | DESC ) brackettedExpression )
   | ( constraint | var )
 ;
 
-limitOffsetClauses
+limitOffsetClauses //25
   : limitClause offsetClause?
   | offsetClause limitClause?
 ;
 
-limitClause
+limitClause //26
   : LIMIT INTEGER
 ;
 
-offsetClause
+offsetClause //27
   : OFFSET INTEGER
 ;
 
-valuesClause
+valuesClause //28
   : ( VALUES dataBlock )?
 ;
+
+//TODO start of update grammar
 
 triplesTemplate
   : triplesSameSubject ( PERIOD triplesTemplate? )?
