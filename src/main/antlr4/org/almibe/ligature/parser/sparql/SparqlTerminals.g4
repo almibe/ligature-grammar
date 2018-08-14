@@ -12,10 +12,6 @@ fragment UCHAR //possible dupe
   : '\\u' HEX HEX HEX HEX | '\\U' HEX HEX HEX HEX HEX HEX HEX HEX
 ;
 
-fragment HEX //possible dupe
-  : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f'
-;
-
 PNAME_NS //140
   : PN_PREFIX? ':'
 ;
@@ -126,7 +122,7 @@ PN_CHARS_BASE //164
   | ('\u3001'..'\uD7FF')
   | ('\uF900'..'\uFDCF')
   | ('\uFDF0'..'\uFFFD')
-  | ('\u10000'..'\uEFFFF')
+  //| ('\u10000'..'\uEFFFF')
 ;
 
 PN_CHARS_U //165
@@ -135,4 +131,32 @@ PN_CHARS_U //165
 
 VARNAME //166
   : ( PN_CHARS_U | ('0'..'9' ) ( PN_CHARS_U | '0'..'9') | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040') )*
+;
+
+PN_CHARS //167
+  : PN_CHARS_U | '-' | ('0'..'9') | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040')
+;
+
+PN_PREFIX //168
+  : PN_CHARS_BASE ((PN_CHARS|'.')* PN_CHARS)?
+;
+
+PN_LOCAL //169
+  : (PN_CHARS_U | ':' | ('0'..'9') | PLX ) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX) )?
+;
+
+PLX //170
+  : PERCENT | PN_LOCAL_ESC
+;
+
+PERCENT //171
+  : '%' HEX HEX
+;
+
+HEX //172
+  : ('0'..'9') | ('A'..'F') | ('a'..'f')
+;
+
+PN_LOCAL_ESC //173
+  : '\\' ( '_' | '~' | '.' | '-' | '!' | '$' | '&' | '\'' | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%' )
 ;
