@@ -1,74 +1,78 @@
 parser grammar Sparql;
 
-options { tokenVocab = ModalSparqlLexer; }
+options { tokenVocab = SparqlTerminals; }
 
-queryUnit
+commandUnit //0
+  : queryUnit | updateUnit
+;
+
+queryUnit //1
   : query
 ;
 
-query
+query //2
   : prologue ( selectQuery | constructQuery | describeQuery | askQuery ) valuesClause
 ;
 
-prologue
+prologue //4
   : ( baseDecl | prefixDecl )*
 ;
 
-baseDecl
-  : BASE iriRef
+baseDecl //5
+  : BASE IRIREF
 ;
 
-prefixDecl
-  : PREFIX PNAME_NS iriRef
+prefixDecl //6
+  : PREFIX PNAME_NS IRIREF
 ;
 
-selectQuery
+selectQuery //7
   : selectClause datasetClause* whereClause solutionModifier
 ;
 
-subSelect
+subSelect //8
   : selectClause whereClause solutionModifier valuesClause
 ;
 
-selectClause
+selectClause //9
   : SELECT ( DISTINCT | REDUCED )? ( ( var | ( OPEN_PAREN expression AS var CLOSE_PAREN ) )+ | STAR )
 ;
 
-constructQuery
+constructQuery //10
   : CONSTRUCT
     ( constructTemplate datasetClause* whereClause solutionModifier
     | datasetClause* WHERE OPEN_BRACE triplesTemplate? CLOSE_BRACE solutionModifier )
 ;
 
-describeQuery
+describeQuery //11
   : DESCRIBE ( varOrIri+ | STAR ) datasetClause* whereClause? solutionModifier
 ;
 
-askQuery
+askQuery //12
   : ASK datasetClause* whereClause solutionModifier
 ;
 
-datasetClause
+datasetClause //13
   : FROM ( defaultGraphClause | namedGraphClause )
 ;
 
-defaultGraphClause
+defaultGraphClause //14
   : sourceSelector
 ;
 
-namedGraphClause
+namedGraphClause //15
   : NAMED sourceSelector
 ;
 
-sourceSelector
+sourceSelector //16
   : iri
 ;
 
-whereClause
+whereClause //17
   : WHERE? groupGraphPattern
 ;
 
-solutionModifier
+solutionModifier //18
   : groupClause? havingClause? orderClause? limitOffsetClauses?
 ;
 
