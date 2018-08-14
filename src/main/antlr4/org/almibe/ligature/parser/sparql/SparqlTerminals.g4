@@ -80,3 +80,35 @@ EXPONENT //155
   : ('e' | 'E') ('+'|'-')? ('0'..'9')+
 ;
 
+STRING_LITERAL1 //156
+  : '\'' (~('#x27' | '#x5C' | '#xA' | '#xD') | ECHAR )* '\'' //TODO probably not correct
+;
+
+STRING_LITERAL2 //157
+  : '"' ( ~('#x22' | '#x5C' | '#xA' | '#xD') | ECHAR )* '"' //TODO probably not correct
+;
+
+STRING_LITERAL_LONG1 //158
+  : '\'\'\'' ( ( '\'' | '\'\'' )? ( ~('\\' | '\'') | ECHAR ) )* '\'\'\''
+;
+
+STRING_LITERAL_LONG2 //159
+  : '"""' ( ( '"' | '""' )? ( ~('"' | '\\' ) | ECHAR ) )* '"""'
+;
+
+ECHAR //160
+  : '\\' ('t' | 'b' | 'n' | 'r' | 'f' | '\\' | '"' | '\'' )
+;
+
+NIL //161
+  : '(' WS* ')'
+;
+
+WS //162
+  : '#x20' | '#x9' | '#xD' | '#xA' //TODO probably not correct
+;
+
+ANON //163
+  : '[' WS* ']'
+;
+
