@@ -121,9 +121,22 @@ valuesClause //28
   : ( VALUES dataBlock )?
 ;
 
+//update //29
+//  : prologue ( update1 ( ';' update )? )?
+//;
+//
+//update1 //30
+//  : load | clear | drop | add | move | copy | create | insertData | deleteData | deleteWhere | modify
+//;
+//
+//Load //31
+//  : LOAD SILENT? iri ( INTO graphRef )?
+//;
+
 //TODO start of update grammar
 
-triplesTemplate
+
+triplesTemplate //52
   : triplesSameSubject ( PERIOD triplesTemplate? )?
 ;
 
