@@ -3,7 +3,7 @@ parser grammar Sparql;
 options { tokenVocab = SparqlTerminals; }
 
 commandUnit //0
-  : queryUnit | updateUnit
+  : queryUnit //| updateUnit TODO fix when adding update support
 ;
 
 queryUnit //1
