@@ -122,7 +122,7 @@ PN_CHARS_BASE //164
   | ('\u3001'..'\uD7FF')
   | ('\uF900'..'\uFDCF')
   | ('\uFDF0'..'\uFFFD')
-  //| ('\u10000'..'\uEFFFF')
+  | ('\u{10000}'..'\u{EFFFF}')
 ;
 
 PN_CHARS_U //165
@@ -130,7 +130,7 @@ PN_CHARS_U //165
 ;
 
 VARNAME //166
-  : ( PN_CHARS_U | ('0'..'9' ) ( PN_CHARS_U | '0'..'9') | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040') )+ //TODO should this be + or * like the spec says?
+  : PN_CHARS_U | ('0'..'9' ) ( PN_CHARS_U | '0'..'9') | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040')*
 ;
 
 PN_CHARS //167
