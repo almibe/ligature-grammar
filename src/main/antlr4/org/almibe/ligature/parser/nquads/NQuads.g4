@@ -1,11 +1,11 @@
-grammar NTriples;
+grammar NQuads;
 
-nTriplesDoc
-  : triple? (EOL triple)* EOL?
+nQuadsDoc
+  : statement? (EOL statement)* EOL?
 ;
 
-triple
-  : subject predicate object PERIOD
+statement
+  : subject predicate object graphLabel '.'
 ;
 
 subject
@@ -20,16 +20,16 @@ object
   : IRIREF | BLANK_NODE_LABEL | literal
 ;
 
+graphLabel
+  : IRIREF | BLANK_NODE_LABEL
+;
+
 literal
-  : STRING_LITERAL_QUOTE (LITERAL_TYPE IRIREF | LANGTAG)?
+  : STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?
 ;
 
 LANGTAG
-  : '@' LANG
-;
-
-fragment LANG
-  : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
+  : '@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
 EOL
