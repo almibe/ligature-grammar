@@ -25,11 +25,15 @@ graphLabel
 ;
 
 literal
-  : STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?
+  : STRING_LITERAL_QUOTE (LITERAL_TYPE IRIREF | LANGTAG)?
 ;
 
 LANGTAG
-  : '@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
+  : '@' LANG
+;
+
+fragment LANG
+  : [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
 ;
 
 EOL
