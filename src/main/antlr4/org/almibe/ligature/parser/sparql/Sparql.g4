@@ -592,33 +592,33 @@ builtInCall //121
 ;
 
 regexExpression //122
-  : 'REGEX' OPEN_PAREN expression COMMA expression ( COMMA expression )? CLOSE_PAREN
+  : REGEX OPEN_PAREN expression COMMA expression ( COMMA expression )? CLOSE_PAREN
 ;
 
 substringExpression //123
-  : 'SUBSTR' OPEN_PAREN expression COMMA expression ( COMMA expression )? CLOSE_PAREN
+  : SUBSTR OPEN_PAREN expression COMMA expression ( COMMA expression )? CLOSE_PAREN
 ;
 
 strReplaceExpression //124
-  : 'REPLACE' OPEN_PAREN expression COMMA expression COMMA expression ( COMMA expression )? CLOSE_PAREN
+  : REPLACE OPEN_PAREN expression COMMA expression COMMA expression ( COMMA expression )? CLOSE_PAREN
 ;
 
 existsFunc //125
-  : 'EXISTS' groupGraphPattern
+  : EXISTS groupGraphPattern
 ;
 
 notExistsFunc //126
-  : 'NOT' 'EXISTS' groupGraphPattern
+  : NOT EXISTS groupGraphPattern
 ;
 
 aggregate //127
   : COUNT OPEN_PAREN DISTINCT? ( STAR | expression ) CLOSE_PAREN
-  | 'SUM' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
-  | 'MIN' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
-  | 'MAX' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
-  | 'AVG' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
-  | 'SAMPLE' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
-  | 'GROUP_CONCAT' OPEN_PAREN 'DISTINCT'? expression ( ';' 'SEPARATOR' '=' string )? CLOSE_PAREN
+  | SUM OPEN_PAREN DISTINCT? expression CLOSE_PAREN
+  | MIN OPEN_PAREN DISTINCT? expression CLOSE_PAREN
+  | MAX OPEN_PAREN DISTINCT? expression CLOSE_PAREN
+  | AVG OPEN_PAREN DISTINCT? expression CLOSE_PAREN
+  | SAMPLE OPEN_PAREN DISTINCT? expression CLOSE_PAREN
+  | GROUP_CONCAT OPEN_PAREN DISTINCT? expression ( SEMICOLON SEPARATOR EQUALS string )? CLOSE_PAREN
 ;
 
 iriOrFunction //128
