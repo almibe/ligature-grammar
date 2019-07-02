@@ -3,7 +3,7 @@ parser grammar Sparql;
 options { tokenVocab = SparqlTerminals; }
 
 commandUnit //0
-  : queryUnit //| updateUnit TODO fix when adding update support
+  : queryUnit | updateUnit
 ;
 
 queryUnit //1
@@ -12,6 +12,10 @@ queryUnit //1
 
 query //2
   : prologue ( selectQuery | constructQuery | describeQuery | askQuery ) valuesClause
+;
+
+updateUnit //3
+  : update
 ;
 
 prologue //4
@@ -121,38 +125,115 @@ valuesClause //28
   : ( VALUES dataBlock )?
 ;
 
-//update //29
-//  : prologue ( update1 ( ';' update )? )?
-//;
-//
-//update1 //30
-//  : load | clear | drop | add | move | copy | create | insertData | deleteData | deleteWhere | modify
-//;
-//
-//Load //31
-//  : LOAD SILENT? iri ( INTO graphRef )?
-//;
+update //29
+  : prologue ( update1 ( SEMICOLON update )? )?
+;
 
-//TODO start of update grammar
+update1 //30
+  : load | clear | drop | add | move | copy | create | insertData | deleteData | deleteWhere | modify
+;
 
+load //31
+  : LOAD SILENT? iri ( INTO graphRef )?
+;
+
+clear //32
+  : CLEAR SILENT? graphRefAll
+;
+
+drop //33
+  : DROP SILENT? graphRefAll
+;
+
+create //34
+  : CREATE SILENT? graphRef
+;
+
+add //35
+  : ADD SILENT? graphOrDefault TO graphOrDefault
+;
+
+move //36
+  : MOVE SILENT? graphOrDefault TO graphOrDefault
+;
+
+copy //37
+  : COPY SILENT? graphOrDefault TO graphOrDefault
+;
+
+insertData //38
+  : INSERT DATA quadData
+;
+
+deleteData //39
+  : DELETE DATA quadData
+;
+
+deleteWhere //40
+  : DELETE WHERE quadPattern
+;
+
+modify //41
+  : ( WITH iri )? ( deleteClause insertClause? | insertClause ) usingClause* WHERE groupGraphPattern
+;
+
+deleteClause //42
+  : DELETE quadPattern
+;
+
+insertClause //43
+  : INSERT quadPattern
+;
+
+usingClause //44
+  : USING ( iri | NAMED iri )
+;
+
+graphOrDefault //45
+  : DEFAULT | GRAPH? iri
+;
+
+graphRef //46
+  : GRAPH iri
+;
+
+graphRefAll //47
+  : graphRef | DEFAULT | NAMED | ALL
+;
+
+quadPattern //48
+  : '{' quads '}'
+;
+
+quadData //49
+  : '{' quads '}'
+;
+
+quads //50
+  : triplesTemplate? ( quadsNotTriples '.'? triplesTemplate? )*
+;
+
+quadsNotTriples //51
+  : GRAPH varOrIri '{' triplesTemplate? '}'
+;
 
 triplesTemplate //52
   : triplesSameSubject ( PERIOD triplesTemplate? )?
 ;
 
-groupGraphPattern
+groupGraphPattern //53
   : OPEN_BRACE ( subSelect | groupGraphPatternSub ) CLOSE_BRACE
 ;
 
-groupGraphPatternSub
+groupGraphPatternSub //54
   : triplesBlock? ( graphPatternNotTriples PERIOD ? triplesBlock? )*
 ;
 
-triplesBlock
+triplesBlock //55
   : triplesSameSubjectPath ( PERIOD triplesBlock? )?
 ;
 
-graphPatternNotTriples
+graphPatternNotTriples //56
   : groupOrUnionGraphPattern
   | optionalGraphPattern
   | minusGraphPattern
@@ -163,234 +244,234 @@ graphPatternNotTriples
   | inlineData
 ;
 
-optionalGraphPattern
+optionalGraphPattern //57
   : OPTIONAL groupGraphPattern
 ;
 
-graphGraphPattern
+graphGraphPattern //58
   : GRAPH varOrIri groupGraphPattern
 ;
 
-serviceGraphPattern
+serviceGraphPattern //59
   : SERVICE SILENT? varOrIri groupGraphPattern
 ;
 
-bind
+bind //60
   : BIND OPEN_PAREN expression AS var CLOSE_PAREN
 ;
 
-inlineData
+inlineData //61
   : VALUES dataBlock
 ;
 
-dataBlock
+dataBlock //62
   : inlineDataOneVar | inlineDataFull
 ;
 
-inlineDataOneVar
+inlineDataOneVar //63
   : var OPEN_BRACE dataBlockValue* CLOSE_BRACE
 ;
 
-inlineDataFull
+inlineDataFull //64
   : ( NIL | OPEN_PAREN var* CLOSE_PAREN ) OPEN_BRACE ( OPEN_PAREN dataBlockValue* CLOSE_PAREN | NIL )* CLOSE_BRACE
 ;
 
-dataBlockValue
+dataBlockValue //65
   : iri | rdfLiteral | numericLiteral | booleanLiteral | UNDEF
 ;
 
-minusGraphPattern
+minusGraphPattern //66
   : MINUS groupGraphPattern
 ;
 
-groupOrUnionGraphPattern
+groupOrUnionGraphPattern //67
   : groupGraphPattern ( UNION groupGraphPattern )*
 ;
 
-filter
+filter //68
   : FILTER constraint
 ;
 
-constraint
+constraint //69
   : brackettedExpression
   | builtInCall
   | functionCall
 ;
 
-functionCall
+functionCall //70
   : iri argList
 ;
 
-argList
+argList //71
   : NIL
   | OPEN_PAREN DISTINCT? expression ( COMMA expression )* CLOSE_PAREN
 ;
 
-expressionList
+expressionList //72
   : NIL
   | OPEN_PAREN expression ( COMMA expression )* CLOSE_PAREN
 ;
 
-constructTemplate
+constructTemplate //73
   : OPEN_BRACE constructTriples? CLOSE_BRACE
 ;
 
-constructTriples
+constructTriples //74
   : triplesSameSubject ( PERIOD constructTriples? )?
 ;
 
-triplesSameSubject
+triplesSameSubject //75
   : varOrTerm propertyListNotEmpty
   | triplesNode propertyList
 ;
 
-propertyList
+propertyList //76
   : propertyListNotEmpty?
 ;
 
-propertyListNotEmpty
+propertyListNotEmpty //77
   : verb objectList ( SEMICOLON ( verb objectList )? )*
 ;
 
-verb
-  : varOrIri | A
+verb //78
+  : varOrIri | A_KEYWORD
 ;
 
-objectList
+objectList //79
   : object ( COMMA object )*
 ;
 
-object
+object //80
   : graphNode
 ;
 
-triplesSameSubjectPath
+triplesSameSubjectPath //81
   : varOrTerm propertyListPathNotEmpty
   | triplesNodePath propertyListPath
 ;
 
-propertyListPath
+propertyListPath //82
   : propertyListPathNotEmpty?
 ;
 
-propertyListPathNotEmpty
+propertyListPathNotEmpty //83
   : ( verbPath | verbSimple ) objectListPath ( SEMICOLON ( ( verbPath | verbSimple ) objectList )? )*
 ;
 
-verbPath
+verbPath //84
   : path
 ;
 
-verbSimple
+verbSimple //85
   : var
 ;
 
-objectListPath
+objectListPath //86
   : objectPath ( COMMA objectPath )*
 ;
 
-objectPath
+objectPath //87
   : graphNodePath
 ;
 
-path
+path //88
   : pathAlternative
 ;
 
-pathAlternative
+pathAlternative //89
   : pathSequence ( BAR pathSequence )*
 ;
 
-pathSequence
+pathSequence //90
   : pathEltOrInverse ( FORWARD_SLASH pathEltOrInverse )*
 ;
 
-pathElt
+pathElt //91
   : pathPrimary pathMod?
 ;
 
-pathEltOrInverse
+pathEltOrInverse //92
   : pathElt
   | CARET pathElt
 ;
 
-pathMod
+pathMod //93
   : QUESTION_MARK
   | STAR
   | PLUS
 ;
 
-pathPrimary
+pathPrimary //94
   : iri
-  | A
+  | A_KEYWORD
   | EXCLAMATION pathNegatedPropertySet
   | OPEN_PAREN path CLOSE_PAREN
 ;
 
-pathNegatedPropertySet
+pathNegatedPropertySet //95
   : pathOneInPropertySet
   | OPEN_PAREN ( pathOneInPropertySet ( BAR pathOneInPropertySet )* )? CLOSE_PAREN
 ;
 
-pathOneInPropertySet
+pathOneInPropertySet //96
   : iri
-  | A
-  | CARET ( iri | A )
+  | A_KEYWORD
+  | CARET ( iri | A_KEYWORD )
 ;
 
-integer
+integer //97
   : INTEGER
 ;
 
-triplesNode
+triplesNode //98
   : collection
   | blankNodePropertyList
 ;
 
-blankNodePropertyList
+blankNodePropertyList //99
   : OPEN_BRACKET propertyListNotEmpty CLOSE_BRACKET
 ;
 
-triplesNodePath
+triplesNodePath //100
   : collectionPath
   | blankNodePropertyListPath
 ;
 
-blankNodePropertyListPath
+blankNodePropertyListPath //101
   : OPEN_BRACKET propertyListPathNotEmpty CLOSE_BRACKET
 ;
 
-collection
+collection //102
   : OPEN_PAREN graphNode+ CLOSE_PAREN
 ;
 
-collectionPath
+collectionPath //103
   : OPEN_PAREN graphNodePath+ CLOSE_PAREN
 ;
 
-graphNode
+graphNode //104
   : varOrTerm
   | triplesNode
 ;
 
-graphNodePath
+graphNodePath //105
   : varOrTerm
   | triplesNodePath
 ;
 
-varOrTerm
+varOrTerm //106
   : var | graphTerm
 ;
 
-varOrIri
+varOrIri //107
   : var | iri
 ;
 
-var
+var //108
   : VAR1 | VAR2
 ;
 
-graphTerm
+graphTerm //109
   : iri
   | rdfLiteral
   | numericLiteral
@@ -399,46 +480,46 @@ graphTerm
   | NIL
 ;
 
-expression
+expression //110
   : conditionalOrExpression
 ;
 
-conditionalOrExpression
+conditionalOrExpression //111
   : conditionalAndExpression ( LOGICAL_OR conditionalAndExpression )*
 ;
 
-conditionalAndExpression
+conditionalAndExpression //112
   : valueLogical ( LOGICAL_AND valueLogical )*
 ;
 
-valueLogical
+valueLogical //113
   : relationalExpression
 ;
 
-relationalExpression
+relationalExpression //114
   : numericExpression ( EQUAL numericExpression | NOT_EQUAL numericExpression | LESS_THAN numericExpression | GREATER_THAN numericExpression | LESS_THAN_OR_EQUAL numericExpression | GREATER_THAN_OR_EQUAL numericExpression | IN expressionList | NOT IN expressionList )?
 ;
 
-numericExpression
+numericExpression //115
   : additiveExpression
 ;
 
-additiveExpression
+additiveExpression //116
   : multiplicativeExpression ( PLUS multiplicativeExpression | MINUS_SIGN multiplicativeExpression | ( numericLiteralPositive | numericLiteralNegative ) ( ( STAR unaryExpression ) | ( FOWARD_SLASH unaryExpression ) )* )*
 ;
 
-multiplicativeExpression
+multiplicativeExpression //117
   : unaryExpression ( STAR unaryExpression | FORWARD_SLASH unaryExpression )*
 ;
 
-unaryExpression
+unaryExpression //118
   : EXCLAMATION primaryExpression
   | PLUS primaryExpression
   | MINUS_SIGN primaryExpression
   | primaryExpression
 ;
 
-primaryExpression
+primaryExpression //119
   : brackettedExpression
   | builtInCall
   | iriOrFunction
@@ -448,153 +529,153 @@ primaryExpression
   | var
 ;
 
-brackettedExpression
+brackettedExpression //120
   : OPEN_PAREN expression CLOSE_PAREN
 ;
 
-builtInCall
-  : aggregate;
-//  | 'STR' '(' expression ')'
-//  | 'LANG' '(' expression ')'
-//  | 'LANGMATCHES' '(' expression ',' expression ')'
-//  | 'DATATYPE' '(' expression ')'
-//  | 'BOUND' '(' Var ')'
-//  | 'IRI' '(' expression ')'
-//  | 'URI' '(' expression ')'
-//  | 'BNODE' ( '(' expression ')' | NIL )
-//  | 'RAND' NIL
-//  | 'ABS' '(' expression ')'
-//  | 'CEIL' '(' expression ')'
-//  | 'FLOOR' '(' expression ')'
-//  | 'ROUND' '(' expression ')'
-//  | 'CONCAT' expressionList
-//  | substringExpression
-//  | 'STRLEN' '(' expression ')'
-//  | strReplaceExpression
-//  | 'UCASE' '(' expression ')'
-//  | 'LCASE' '(' expression ')'
-//  | 'ENCODE_FOR_URI' '(' expression ')'
-//  | 'CONTAINS' '(' expression ',' expression ')'
-//  | 'STRSTARTS' '(' expression ',' expression ')'
-//  | 'STRENDS' '(' expression ',' expression ')'
-//  | 'STRBEFORE' '(' expression ',' expression ')'
-//  | 'STRAFTER' '(' expression ',' expression ')'
-//  | 'YEAR' '(' expression ')'
-//  | 'MONTH' '(' expression ')'
-//  | 'DAY' '(' expression ')'
-//  | 'HOURS' '(' expression ')'
-//  | 'MINUTES' '(' expression ')'
-//  | 'SECONDS' '(' expression ')'
-//  | 'TIMEZONE' '(' expression ')'
-//  | 'TZ' '(' expression ')'
-//  | 'NOW' NIL
-//  | 'UUID' NIL
-//  | 'STRUUID' NIL
-//  | 'MD5' '(' expression ')'
-//  | 'SHA1' '(' expression ')'
-//  | 'SHA256' '(' expression ')'
-//  | 'SHA384' '(' expression ')'
-//  | 'SHA512' '(' expression ')'
-//  | 'COALESCE' expressionList
-//  | 'IF' '(' expression ',' expression ',' expression ')'
-//  | 'STRLANG' '(' expression ',' expression ')'
-//  | 'STRDT' '(' expression ',' expression ')'
-//  | 'sameTerm' '(' expression ',' expression ')'
-//  | 'isIRI' '(' expression ')'
-//  | 'isURI' '(' expression ')'
-//  | 'isBLANK' '(' expression ')'
-//  | 'isLITERAL' '(' expression ')'
-//  | 'isNUMERIC' '(' expression ')'
-//  | regexExpression
-//  | existsFunc
-//  | notExistsFunc
-//;
-//
-//regexExpression
-//  : 'REGEX' '(' expression ',' expression ( ',' expression )? ')'
-//;
-//
-//substringExpression
-//  : 'SUBSTR' '(' expression ',' expression ( ',' expression )? ')'
-//;
-//
-//strReplaceExpression
-//  : 'REPLACE' '(' expression ',' expression ',' expression ( ',' expression )? ')'
-//;
-//
-//existsFunc
-//  : 'EXISTS' groupGraphPattern
-//;
-//
-//notExistsFunc
-//  : 'NOT' 'EXISTS' groupGraphPattern
-//;
-//
-aggregate
-  : COUNT OPEN_PAREN DISTINCT? ( STAR | expression ) CLOSE_PAREN
-//  | 'SUM' '(' 'DISTINCT'? expression ')'
-//  | 'MIN' '(' 'DISTINCT'? expression ')'
-//  | 'MAX' '(' 'DISTINCT'? expression ')'
-//  | 'AVG' '(' 'DISTINCT'? expression ')'
-//  | 'SAMPLE' '(' 'DISTINCT'? expression ')'
-//  | 'GROUP_CONCAT' '(' 'DISTINCT'? expression ( ';' 'SEPARATOR' '=' string )? ')'
+builtInCall //121
+  : aggregate
+  | 'STR' '(' expression ')'
+  | 'LANG' '(' expression ')'
+  | 'LANGMATCHES' '(' expression ',' expression ')'
+  | 'DATATYPE' '(' expression ')'
+  | 'BOUND' '(' Var ')'
+  | 'IRI' '(' expression ')'
+  | 'URI' '(' expression ')'
+  | 'BNODE' ( '(' expression ')' | NIL )
+  | 'RAND' NIL
+  | 'ABS' '(' expression ')'
+  | 'CEIL' '(' expression ')'
+  | 'FLOOR' '(' expression ')'
+  | 'ROUND' '(' expression ')'
+  | 'CONCAT' expressionList
+  | substringExpression
+  | 'STRLEN' '(' expression ')'
+  | strReplaceExpression
+  | 'UCASE' '(' expression ')'
+  | 'LCASE' '(' expression ')'
+  | 'ENCODE_FOR_URI' '(' expression ')'
+  | 'CONTAINS' '(' expression ',' expression ')'
+  | 'STRSTARTS' '(' expression ',' expression ')'
+  | 'STRENDS' '(' expression ',' expression ')'
+  | 'STRBEFORE' '(' expression ',' expression ')'
+  | 'STRAFTER' '(' expression ',' expression ')'
+  | 'YEAR' '(' expression ')'
+  | 'MONTH' '(' expression ')'
+  | 'DAY' '(' expression ')'
+  | 'HOURS' '(' expression ')'
+  | 'MINUTES' '(' expression ')'
+  | 'SECONDS' '(' expression ')'
+  | 'TIMEZONE' '(' expression ')'
+  | 'TZ' '(' expression ')'
+  | 'NOW' NIL
+  | 'UUID' NIL
+  | 'STRUUID' NIL
+  | 'MD5' '(' expression ')'
+  | 'SHA1' '(' expression ')'
+  | 'SHA256' '(' expression ')'
+  | 'SHA384' '(' expression ')'
+  | 'SHA512' '(' expression ')'
+  | 'COALESCE' expressionList
+  | 'IF' '(' expression ',' expression ',' expression ')'
+  | 'STRLANG' '(' expression ',' expression ')'
+  | 'STRDT' '(' expression ',' expression ')'
+  | 'sameTerm' '(' expression ',' expression ')'
+  | 'isIRI' '(' expression ')'
+  | 'isURI' '(' expression ')'
+  | 'isBLANK' '(' expression ')'
+  | 'isLITERAL' '(' expression ')'
+  | 'isNUMERIC' '(' expression ')'
+  | regexExpression
+  | existsFunc
+  | notExistsFunc
 ;
 
-iriOrFunction
+regexExpression //122
+  : 'REGEX' '(' expression ',' expression ( ',' expression )? ')'
+;
+
+substringExpression //123
+  : 'SUBSTR' '(' expression ',' expression ( ',' expression )? ')'
+;
+
+strReplaceExpression //124
+  : 'REPLACE' '(' expression ',' expression ',' expression ( ',' expression )? ')'
+;
+
+existsFunc //125
+  : 'EXISTS' groupGraphPattern
+;
+
+notExistsFunc //126
+  : 'NOT' 'EXISTS' groupGraphPattern
+;
+
+aggregate //127
+  : COUNT OPEN_PAREN DISTINCT? ( STAR | expression ) CLOSE_PAREN
+  | 'SUM' '(' 'DISTINCT'? expression ')'
+  | 'MIN' '(' 'DISTINCT'? expression ')'
+  | 'MAX' '(' 'DISTINCT'? expression ')'
+  | 'AVG' '(' 'DISTINCT'? expression ')'
+  | 'SAMPLE' '(' 'DISTINCT'? expression ')'
+  | 'GROUP_CONCAT' '(' 'DISTINCT'? expression ( ';' 'SEPARATOR' '=' string )? ')'
+;
+
+iriOrFunction //128
   : iri argList?
 ;
 
-rdfLiteral
+rdfLiteral //129
   : string ( LANGTAG | ( LITERAL_TYPE iri ) )?
 ;
 
-numericLiteral
+numericLiteral //130
   : numericLiteralUnsigned
   | numericLiteralPositive
   | numericLiteralNegative
 ;
 
-numericLiteralUnsigned
+numericLiteralUnsigned //131
   : INTEGER
   | DECIMAL
   | DOUBLE
 ;
 
-numericLiteralPositive
+numericLiteralPositive //132
   : INTEGER_POSITIVE
   | DECIMAL_POSITIVE
   | DOUBLE_POSITIVE
 ;
 
-numericLiteralNegative
+numericLiteralNegative //133
   : INTEGER_NEGATIVE
   | DECIMAL_NEGATIVE
   | DOUBLE_NEGATIVE
 ;
 
-booleanLiteral
+booleanLiteral //134
   : TRUE
   | FALSE
 ;
 
-string
+string //135
   : STRING_LITERAL1
   | STRING_LITERAL2
   | STRING_LITERAL_LONG1
   | STRING_LITERAL_LONG2
 ;
 
-iri
+iri //136
   : iriRef
   | PREFIXED_NAME
 ;
 
-prefixedName
+prefixedName //137
   : PNAME_LN
   | PNAME_NS
 ;
 
-blankNode
+blankNode //138
   : BLANK_NODE_LABEL
   | ANON
 ;
