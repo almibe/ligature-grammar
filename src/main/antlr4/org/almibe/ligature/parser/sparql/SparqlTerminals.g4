@@ -487,147 +487,147 @@ BNODE
 ;
 
 RAND
-  : TODO
+  : R A N D
 ;
 
 ABS
-  : TODO
+  : A B S
 ;
 
 CEIL
-  : TODO
+  : C E I L
 ;
 
 FLOOR
-  : TODO
+  : F L O O R
 ;
 
 ROUND
-  : TODO
+  : R O U N D
 ;
 
 CONCAT
-  : TODO
+  : C O N C A T
 ;
 
 STRLEN
-  : TODO
+  : S T R L E N
 ;
 
 UCASE
-  : TODO
+  : U C A S E
 ;
 
 LCASE
-  : TODO
+  : L C A S E
 ;
 
 ENCODE_FOR_URI
-  : TODO
+  : E N C O D E '_' F O R '_' U R I
 ;
 
 CONTAINS
-  : TODO
+  : C O N T A I N S
 ;
 
 STRSTARTS
-  : TODO
+  : S T R S T A R T S
 ;
 
 STRENDS
-  : TODO
+  : S T R E N D S
 ;
 
 STRBEFORE
-  : TODO
+  : S T R B E F O R E
 ;
 
 STRAFTER
-  : TODO
+  : S T R A F T E R
 ;
 
 YEAR
-  : TODO
+  : Y E A R
 ;
 
 MONTH
-  : TODO
+  : M O N T H
 ;
 
 DAY
-  : TODO
+  : D A Y
 ;
 
 HOURS
-  : TODO
+  : H O U R S
 ;
 
 MINUTES
-  : TODO
+  : M I N U T E S
 ;
 
 SECONDS
-  : TODO
+  : S E C O N D S
 ;
 
 TIMEZONE
-  : TODO
+  : T I M E Z O N E
 ;
 
 TZ
-  : TODO
+  : T Z
 ;
 
 NOW
-  : TODO
+  : N O W
 ;
 
 UUID
-  : TODO
+  : U U I D
 ;
 
 STRUUID
-  : TODO
+  : S T R U U I D
 ;
 
 MD5
-  : TODO
+  : M D '5'
 ;
 
 SHA1
-  : TODO
+  : S H A '1'
 ;
 
 SHA256
-  : TODO
+  : S H A '256'
 ;
 
 SHA384
-  : TODO
+  : S H A '384'
 ;
 
 SHA512
-  : TODO
+  : S H A '512'
 ;
 
 COALESCE
-  : TODO
+  : C O A L E S C E
 ;
 
 IF
-  : TODO
+  : I F
 ;
 
 STRLANG
-  : TODO
+  : S T R L A N G
 ;
 
 STRDT
-  : TODO
+  : S T R D T
 ;
 
 SAMETERM
-  : TODO
+  : S A M E T E R M
 ;
 
 ISIRI
