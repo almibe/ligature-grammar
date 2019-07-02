@@ -171,143 +171,556 @@ A_KEYWORD //The 'a' keyword needs to be lowercase
 ;
 
 BASE
+  : TODO
+;
+
 PREFIX
+  : TODO
+;
+
 SELECT
+  : TODO
+;
+
 DISTINCT
+  : TODO
+;
+
 REDUCED
+  : TODO
+;
+
 OPEN_PAREN
+  : TODO
+;
+
 AS
+  : TODO
+;
+
 CLOSE_PAREN
+  : TODO
+;
+
 STAR
+  : TODO
+;
+
 CONSTRUCT
+  : TODO
+;
+
 WHERE
+  : TODO
+;
+
 OPEN_BRACE
+  : TODO
+;
+
 CLOSE_BRACE
+  : TODO
+;
+
 DESCRIBE
+  : TODO
+;
+
 ASK
+  : TODO
+;
+
 FROM
+  : TODO
+;
+
 NAMED
+  : TODO
+;
+
 GROUP
+  : TODO
+;
+
 BY
+  : TODO
+;
+
 HAVING
+  : TODO
+;
+
 ORDER
+  : TODO
+;
+
 ASC
+  : TODO
+;
+
 DESC
+  : TODO
+;
+
 LIMIT
+  : TODO
+;
+
 OFFSET
+  : TODO
+;
+
 VALUES
+  : TODO
+;
+
 SEMICOLON
+  : TODO
+;
+
 LOAD
+  : TODO
+;
+
 SILENT
+  : TODO
+;
+
 INTO
+  : TODO
+;
+
 CLEAR
+  : TODO
+;
+
 DROP
+  : TODO
+;
+
 CREATE
+  : TODO
+;
+
 ADD
+  : TODO
+;
+
 TO
+  : TODO
+;
+
 MOVE
+  : TODO
+;
+
 COPY
+  : TODO
+;
+
 INSERT
+  : TODO
+;
+
 DATA
+  : TODO
+;
+
 DELETE
+  : TODO
+;
+
 WITH
+  : TODO
+;
+
 USING
+  : TODO
+;
+
 DEFAULT
+  : TODO
+;
+
 GRAPH
+  : TODO
+;
+
 ALL
+  : TODO
+;
+
 PERIOD
+  : TODO
+;
+
 OPTIONAL
+  : TODO
+;
+
 BIND
+  : TODO
+;
+
 UNDEF
+  : TODO
+;
+
 MINUS
+  : TODO
+;
+
 FILTER
+  : TODO
+;
+
 COMMA
+  : TODO
+;
+
 BAR
+  : TODO
+;
+
 FORWARD_SLASH
+  : TODO
+;
+
 CARET
+  : TODO
+;
+
 QUESTION_MARK
+  : TODO
+;
+
 PLUS
+  : TODO
+;
+
 EXCLAMATION
+  : TODO
+;
+
 OPEN_BRACKET
+  : TODO
+;
+
 CLOSE_BRACKET
+  : TODO
+;
+
 LOGICAL_OR
+  : TODO
+;
+
 LOGICAL_AND
+  : TODO
+;
+
 EQUAL
+  : TODO
+;
+
 NOT_EQUAL
+  : TODO
+;
+
 LESS_THAN
+  : TODO
+;
+
 GREATER_THAN
+  : TODO
+;
+
 LESS_THAN_OR_EQUAL
+  : TODO
+;
+
 GREATER_THAN_OR_EQUAL
+  : TODO
+;
+
 IN
+  : TODO
+;
+
 NOT
+  : TODO
+;
+
 MINUS_SIGN
+  : TODO
+;
+
 FOWARD_SLASH
+  : TODO
+;
+
 STR
+  : TODO
+;
+
 LANG
+  : TODO
+;
+
 LANGMATCHES
+  : TODO
+;
+
 DATATYPE
+  : TODO
+;
+
 BOUND
+  : TODO
+;
+
 IRI
+  : TODO
+;
+
 URI
+  : TODO
+;
+
 BNODE
+  : TODO
+;
+
 RAND
+  : TODO
+;
+
 ABS
+  : TODO
+;
+
 CEIL
+  : TODO
+;
+
 FLOOR
+  : TODO
+;
+
 ROUND
+  : TODO
+;
+
 CONCAT
+  : TODO
+;
+
 STRLEN
+  : TODO
+;
+
 UCASE
+  : TODO
+;
+
 LCASE
+  : TODO
+;
+
 ENCODE_FOR_URI
+  : TODO
+;
+
 CONTAINS
+  : TODO
+;
+
 STRSTARTS
+  : TODO
+;
+
 STRENDS
+  : TODO
+;
+
 STRBEFORE
+  : TODO
+;
+
 STRAFTER
+  : TODO
+;
+
 YEAR
+  : TODO
+;
+
 MONTH
+  : TODO
+;
+
 DAY
+  : TODO
+;
+
 HOURS
+  : TODO
+;
+
 MINUTES
+  : TODO
+;
+
 SECONDS
+  : TODO
+;
+
 TIMEZONE
+  : TODO
+;
+
 TZ
+  : TODO
+;
+
 NOW
+  : TODO
+;
+
 UUID
+  : TODO
+;
+
 STRUUID
+  : TODO
+;
+
 MD5
+  : TODO
+;
+
 SHA1
+  : TODO
+;
+
 SHA256
+  : TODO
+;
+
 SHA384
+  : TODO
+;
+
 SHA512
+  : TODO
+;
+
 COALESCE
+  : TODO
+;
+
 IF
+  : TODO
+;
+
 STRLANG
+  : TODO
+;
+
 STRDT
+  : TODO
+;
+
 SAMETERM
+  : TODO
+;
+
 ISIRI
+  : TODO
+;
+
 ISURI
+  : TODO
+;
+
 ISBLANK
+  : TODO
+;
+
 ISLITERAL
+  : TODO
+;
+
 ISNUMERIC
+  : TODO
+;
+
 REGEX
+  : TODO
+;
+
 SUBSTR
+  : TODO
+;
+
 REPLACE
+  : TODO
+;
+
 EXISTS
+  : TODO
+;
+
 COUNT
+  : TODO
+;
+
 SUM
+  : TODO
+;
+
 MIN
+  : TODO
+;
+
 MAX
+  : TODO
+;
+
 AVG
+  : TODO
+;
+
 SAMPLE
+  : TODO
+;
+
 GROUP_CONCAT
+  : TODO
+;
+
 SEPARATOR
+  : TODO
+;
+
 EQUALS
+  : TODO
+;
+
 LITERAL_TYPE
+  : TODO
+;
+
 TRUE
+  : TODO
+;
+
 FALSE
+  : TODO
+;
+
 PREFIXED_NAME
+  : TODO
+;
 
 fragment A : [aA];
 fragment B : [bB];
