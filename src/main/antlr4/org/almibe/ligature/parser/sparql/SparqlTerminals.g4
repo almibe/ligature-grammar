@@ -327,167 +327,163 @@ DATA
 ;
 
 DELETE
-  : TODO
+  : D E L E T E
 ;
 
 WITH
-  : TODO
+  : W I T H
 ;
 
 USING
-  : TODO
+  : U S I N G
 ;
 
 DEFAULT
-  : TODO
+  : D E F A U L T
 ;
 
 GRAPH
-  : TODO
+  : G R A P H
 ;
 
 ALL
-  : TODO
+  : A L L
 ;
 
 PERIOD
-  : TODO
+  : '.'
 ;
 
 OPTIONAL
-  : TODO
+  : O P T I O N A L
 ;
 
 BIND
-  : TODO
+  : B I N D
 ;
 
 UNDEF
-  : TODO
+  : U N D E F
 ;
 
 MINUS
-  : TODO
+  : M I N U S
 ;
 
 FILTER
-  : TODO
+  : F I L T E R
 ;
 
 COMMA
-  : TODO
+  : ','
 ;
 
 BAR
-  : TODO
+  : '|'
 ;
 
 FORWARD_SLASH
-  : TODO
+  : '/'
 ;
 
 CARET
-  : TODO
+  : '`'
 ;
 
 QUESTION_MARK
-  : TODO
+  : '?'
 ;
 
 PLUS
-  : TODO
+  : '+'
 ;
 
 EXCLAMATION
-  : TODO
+  : '!'
 ;
 
 OPEN_BRACKET
-  : TODO
+  : '['
 ;
 
 CLOSE_BRACKET
-  : TODO
+  : ']'
 ;
 
 LOGICAL_OR
-  : TODO
+  : '||'
 ;
 
 LOGICAL_AND
-  : TODO
+  : '&&'
 ;
 
 EQUAL
-  : TODO
+  : '='
 ;
 
 NOT_EQUAL
-  : TODO
+  : '!='
 ;
 
 LESS_THAN
-  : TODO
+  : '<'
 ;
 
 GREATER_THAN
-  : TODO
+  : '>'
 ;
 
 LESS_THAN_OR_EQUAL
-  : TODO
+  : '<='
 ;
 
 GREATER_THAN_OR_EQUAL
-  : TODO
+  : '>='
 ;
 
 IN
-  : TODO
+  : I N
 ;
 
 NOT
-  : TODO
+  : N O T
 ;
 
 MINUS_SIGN
-  : TODO
-;
-
-FOWARD_SLASH
-  : TODO
+  : '-'
 ;
 
 STR
-  : TODO
+  : S T R
 ;
 
 LANG
-  : TODO
+  : L A N G
 ;
 
 LANGMATCHES
-  : TODO
+  : L A N G M A T C H E S
 ;
 
 DATATYPE
-  : TODO
+  : D A T A T Y P E
 ;
 
 BOUND
-  : TODO
+  : B O U N D
 ;
 
-IRI
-  : TODO
+IRI_STRING
+  : I R I
 ;
 
 URI
-  : TODO
+  : U R I
 ;
 
 BNODE
-  : TODO
+  : B N O D E
 ;
 
 RAND
