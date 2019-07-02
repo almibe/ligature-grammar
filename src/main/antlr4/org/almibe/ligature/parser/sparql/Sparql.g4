@@ -505,7 +505,7 @@ numericExpression //115
 ;
 
 additiveExpression //116
-  : multiplicativeExpression ( PLUS multiplicativeExpression | MINUS_SIGN multiplicativeExpression | ( numericLiteralPositive | numericLiteralNegative ) ( ( STAR unaryExpression ) | ( FOWARD_SLASH unaryExpression ) )* )*
+  : multiplicativeExpression ( PLUS multiplicativeExpression | MINUS_SIGN multiplicativeExpression | ( numericLiteralPositive | numericLiteralNegative ) ( ( STAR unaryExpression ) | ( FORWARD_SLASH unaryExpression ) )* )*
 ;
 
 multiplicativeExpression //117
