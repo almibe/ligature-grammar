@@ -537,7 +537,7 @@ builtInCall //121
   : aggregate
   | STR OPEN_PAREN expression CLOSE_PAREN
   | LANG OPEN_PAREN expression CLOSE_PAREN
-  | LANGMATCHES OPEN_PAREN expression ',' expression CLOSE_PAREN
+  | LANGMATCHES OPEN_PAREN expression COMMA expression CLOSE_PAREN
   | DATATYPE OPEN_PAREN expression CLOSE_PAREN
   | BOUND OPEN_PAREN Var CLOSE_PAREN
   | IRI OPEN_PAREN expression CLOSE_PAREN
