@@ -631,91 +631,87 @@ SAMETERM
 ;
 
 ISIRI
-  : TODO
+  : I S I R I
 ;
 
 ISURI
-  : TODO
+  : I S U R I
 ;
 
 ISBLANK
-  : TODO
+  : I S B L A N K
 ;
 
 ISLITERAL
-  : TODO
+  : I S L I T E R A L
 ;
 
 ISNUMERIC
-  : TODO
+  : I S N U M E R I C
 ;
 
 REGEX
-  : TODO
+  : R E G E X
 ;
 
 SUBSTR
-  : TODO
+  : S U B S T R
 ;
 
 REPLACE
-  : TODO
+  : R E P L A C E
 ;
 
 EXISTS
-  : TODO
+  : E X I S T S
 ;
 
 COUNT
-  : TODO
+  : C O U N T
 ;
 
 SUM
-  : TODO
+  : S U M
 ;
 
 MIN
-  : TODO
+  : M I N
 ;
 
 MAX
-  : TODO
+  : M A X
 ;
 
 AVG
-  : TODO
+  : A V G
 ;
 
 SAMPLE
-  : TODO
+  : S A M P L E
 ;
 
 GROUP_CONCAT
-  : TODO
+  : G R O U P '_' C O N C A T
 ;
 
 SEPARATOR
-  : TODO
+  : S E P A R A T O R
 ;
 
 EQUALS
-  : TODO
+  : '='
 ;
 
 LITERAL_TYPE
-  : TODO
+  : '^^'
 ;
 
 TRUE
-  : TODO
+  : T R U E
 ;
 
 FALSE
-  : TODO
-;
-
-PREFIXED_NAME
-  : TODO
+  : F A L S E
 ;
 
 fragment A : [aA];

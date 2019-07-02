@@ -667,7 +667,7 @@ string //135
 
 iri //136
   : IRIREF
-  | PREFIXED_NAME
+  | prefixedName
 ;
 
 prefixedName //137
