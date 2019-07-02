@@ -666,7 +666,7 @@ string //135
 ;
 
 iri //136
-  : iriRef
+  : IRIREF
   | PREFIXED_NAME
 ;
 
@@ -678,8 +678,4 @@ prefixedName //137
 blankNode //138
   : BLANK_NODE_LABEL
   | ANON
-;
-
-iriRef
-  : LESS_THAN (ABSOLUTE_IRI | RELATIVE_IRI) GREATER_THAN
 ;
