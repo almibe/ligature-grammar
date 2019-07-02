@@ -134,7 +134,7 @@ VARNAME //166
 ;
 
 PN_CHARS //167
-  : PN_CHARS_U | '-' | ('0'..'9') | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040')
+  : PN_CHARS_U | MINUS_SIGN | ('0'..'9') | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040')
 ;
 
 PN_PREFIX //168
@@ -698,10 +698,6 @@ SEPARATOR
   : S E P A R A T O R
 ;
 
-EQUALS
-  : '='
-;
-
 LITERAL_TYPE
   : '^^'
 ;
@@ -712,6 +708,14 @@ TRUE
 
 FALSE
   : F A L S E
+;
+
+SERVICE
+  : S E R V I C E
+;
+
+UNION
+  : U N I O N
 ;
 
 fragment A : [aA];
