@@ -171,159 +171,159 @@ A_KEYWORD //The 'a' keyword needs to be lowercase
 ;
 
 BASE
-  : TODO
+  : B A S E
 ;
 
 PREFIX
-  : TODO
+  : P R E F I X
 ;
 
 SELECT
-  : TODO
+  : S E L E C T
 ;
 
 DISTINCT
-  : TODO
+  : D I S T I N C T
 ;
 
 REDUCED
-  : TODO
+  : R E D U C E D
 ;
 
 OPEN_PAREN
-  : TODO
+  : '('
 ;
 
 AS
-  : TODO
+  : A S
 ;
 
 CLOSE_PAREN
-  : TODO
+  : ')'
 ;
 
 STAR
-  : TODO
+  : '*'
 ;
 
 CONSTRUCT
-  : TODO
+  : C O N S T R U C T
 ;
 
 WHERE
-  : TODO
+  : W H E R E
 ;
 
 OPEN_BRACE
-  : TODO
+  : '{'
 ;
 
 CLOSE_BRACE
-  : TODO
+  : '}'
 ;
 
 DESCRIBE
-  : TODO
+  : D E S C R I B E
 ;
 
 ASK
-  : TODO
+  : A S K
 ;
 
 FROM
-  : TODO
+  : F R O M
 ;
 
 NAMED
-  : TODO
+  : N A M E D
 ;
 
 GROUP
-  : TODO
+  : G R O U P
 ;
 
 BY
-  : TODO
+  : B Y
 ;
 
 HAVING
-  : TODO
+  : H A V I N G
 ;
 
 ORDER
-  : TODO
+  : O R D E R
 ;
 
 ASC
-  : TODO
+  : A S C
 ;
 
 DESC
-  : TODO
+  : D E S C
 ;
 
 LIMIT
-  : TODO
+  : L I M I T
 ;
 
 OFFSET
-  : TODO
+  : O F F S E T
 ;
 
 VALUES
-  : TODO
+  : V A L U E S
 ;
 
 SEMICOLON
-  : TODO
+  : ';'
 ;
 
 LOAD
-  : TODO
+  : L O A D
 ;
 
 SILENT
-  : TODO
+  : S I L E N T
 ;
 
 INTO
-  : TODO
+  : I N T O
 ;
 
 CLEAR
-  : TODO
+  : C L E A R
 ;
 
 DROP
-  : TODO
+  : D R O P
 ;
 
 CREATE
-  : TODO
+  : C R E A T E
 ;
 
 ADD
-  : TODO
+  : A D D
 ;
 
 TO
-  : TODO
+  : T O
 ;
 
 MOVE
-  : TODO
+  : M O V E
 ;
 
 COPY
-  : TODO
+  : C O P Y
 ;
 
 INSERT
-  : TODO
+  : I N S E R T
 ;
 
 DATA
-  : TODO
+  : D A T A
 ;
 
 DELETE
