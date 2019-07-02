@@ -202,19 +202,19 @@ graphRefAll //47
 ;
 
 quadPattern //48
-  : '{' quads '}'
+  : OPEN_BRACE quads CLOSE_BRACE
 ;
 
 quadData //49
-  : '{' quads '}'
+  : OPEN_BRACE quads CLOSE_BRACE
 ;
 
 quads //50
-  : triplesTemplate? ( quadsNotTriples '.'? triplesTemplate? )*
+  : triplesTemplate? ( quadsNotTriples PERIOD? triplesTemplate? )*
 ;
 
 quadsNotTriples //51
-  : GRAPH varOrIri '{' triplesTemplate? '}'
+  : GRAPH varOrIri OPEN_BRACE triplesTemplate? CLOSE_BRACE
 ;
 
 triplesTemplate //52
@@ -535,72 +535,72 @@ brackettedExpression //120
 
 builtInCall //121
   : aggregate
-  | 'STR' '(' expression ')'
-  | 'LANG' '(' expression ')'
-  | 'LANGMATCHES' '(' expression ',' expression ')'
-  | 'DATATYPE' '(' expression ')'
-  | 'BOUND' '(' Var ')'
-  | 'IRI' '(' expression ')'
-  | 'URI' '(' expression ')'
-  | 'BNODE' ( '(' expression ')' | NIL )
-  | 'RAND' NIL
-  | 'ABS' '(' expression ')'
-  | 'CEIL' '(' expression ')'
-  | 'FLOOR' '(' expression ')'
-  | 'ROUND' '(' expression ')'
-  | 'CONCAT' expressionList
+  | STR OPEN_PAREN expression CLOSE_PAREN
+  | LANG OPEN_PAREN expression CLOSE_PAREN
+  | LANGMATCHES OPEN_PAREN expression ',' expression CLOSE_PAREN
+  | DATATYPE OPEN_PAREN expression CLOSE_PAREN
+  | BOUND OPEN_PAREN Var CLOSE_PAREN
+  | IRI OPEN_PAREN expression CLOSE_PAREN
+  | URI OPEN_PAREN expression CLOSE_PAREN
+  | BNODE ( OPEN_PAREN expression CLOSE_PAREN | NIL )
+  | RAND NIL
+  | ABS OPEN_PAREN expression CLOSE_PAREN
+  | CEIL OPEN_PAREN expression CLOSE_PAREN
+  | FLOOR OPEN_PAREN expression CLOSE_PAREN
+  | ROUND OPEN_PAREN expression CLOSE_PAREN
+  | CONCAT expressionList
   | substringExpression
-  | 'STRLEN' '(' expression ')'
+  | STRLEN OPEN_PAREN expression CLOSE_PAREN
   | strReplaceExpression
-  | 'UCASE' '(' expression ')'
-  | 'LCASE' '(' expression ')'
-  | 'ENCODE_FOR_URI' '(' expression ')'
-  | 'CONTAINS' '(' expression ',' expression ')'
-  | 'STRSTARTS' '(' expression ',' expression ')'
-  | 'STRENDS' '(' expression ',' expression ')'
-  | 'STRBEFORE' '(' expression ',' expression ')'
-  | 'STRAFTER' '(' expression ',' expression ')'
-  | 'YEAR' '(' expression ')'
-  | 'MONTH' '(' expression ')'
-  | 'DAY' '(' expression ')'
-  | 'HOURS' '(' expression ')'
-  | 'MINUTES' '(' expression ')'
-  | 'SECONDS' '(' expression ')'
-  | 'TIMEZONE' '(' expression ')'
-  | 'TZ' '(' expression ')'
-  | 'NOW' NIL
-  | 'UUID' NIL
-  | 'STRUUID' NIL
-  | 'MD5' '(' expression ')'
-  | 'SHA1' '(' expression ')'
-  | 'SHA256' '(' expression ')'
-  | 'SHA384' '(' expression ')'
-  | 'SHA512' '(' expression ')'
-  | 'COALESCE' expressionList
-  | 'IF' '(' expression ',' expression ',' expression ')'
-  | 'STRLANG' '(' expression ',' expression ')'
-  | 'STRDT' '(' expression ',' expression ')'
-  | 'sameTerm' '(' expression ',' expression ')'
-  | 'isIRI' '(' expression ')'
-  | 'isURI' '(' expression ')'
-  | 'isBLANK' '(' expression ')'
-  | 'isLITERAL' '(' expression ')'
-  | 'isNUMERIC' '(' expression ')'
+  | UCASE OPEN_PAREN expression CLOSE_PAREN
+  | LCASE OPEN_PAREN expression CLOSE_PAREN
+  | ENCODE_FOR_URI OPEN_PAREN expression CLOSE_PAREN
+  | CONTAINS OPEN_PAREN expression COMMA expression CLOSE_PAREN
+  | STRSTARTS OPEN_PAREN expression COMMA expression CLOSE_PAREN
+  | STRENDS OPEN_PAREN expression COMMA expression CLOSE_PAREN
+  | STRBEFORE OPEN_PAREN expression COMMA expression CLOSE_PAREN
+  | STRAFTER OPEN_PAREN expression COMMA expression CLOSE_PAREN
+  | YEAR OPEN_PAREN expression CLOSE_PAREN
+  | MONTH OPEN_PAREN expression CLOSE_PAREN
+  | DAY OPEN_PAREN expression CLOSE_PAREN
+  | HOURS OPEN_PAREN expression CLOSE_PAREN
+  | MINUTES OPEN_PAREN expression CLOSE_PAREN
+  | SECONDS OPEN_PAREN expression CLOSE_PAREN
+  | TIMEZONE OPEN_PAREN expression CLOSE_PAREN
+  | TZ OPEN_PAREN expression CLOSE_PAREN
+  | NOW NIL
+  | UUID NIL
+  | STRUUID NIL
+  | MD5 OPEN_PAREN expression CLOSE_PAREN
+  | SHA1 OPEN_PAREN expression CLOSE_PAREN
+  | SHA256 OPEN_PAREN expression CLOSE_PAREN
+  | SHA384 OPEN_PAREN expression CLOSE_PAREN
+  | SHA512 OPEN_PAREN expression CLOSE_PAREN
+  | COALESCE expressionList
+  | IF OPEN_PAREN expression COMMA expression COMMA expression CLOSE_PAREN
+  | STRLANG OPEN_PAREN expression COMMA expression CLOSE_PAREN
+  | STRDT OPEN_PAREN expression COMMA expression CLOSE_PAREN
+  | SAMETERM OPEN_PAREN expression COMMA expression CLOSE_PAREN
+  | ISIRI OPEN_PAREN expression CLOSE_PAREN
+  | ISURI OPEN_PAREN expression CLOSE_PAREN
+  | ISBLANK OPEN_PAREN expression CLOSE_PAREN
+  | ISLITERAL OPEN_PAREN expression CLOSE_PAREN
+  | ISNUMERIC OPEN_PAREN expression CLOSE_PAREN
   | regexExpression
   | existsFunc
   | notExistsFunc
 ;
 
 regexExpression //122
-  : 'REGEX' '(' expression ',' expression ( ',' expression )? ')'
+  : 'REGEX' OPEN_PAREN expression COMMA expression ( COMMA expression )? CLOSE_PAREN
 ;
 
 substringExpression //123
-  : 'SUBSTR' '(' expression ',' expression ( ',' expression )? ')'
+  : 'SUBSTR' OPEN_PAREN expression COMMA expression ( COMMA expression )? CLOSE_PAREN
 ;
 
 strReplaceExpression //124
-  : 'REPLACE' '(' expression ',' expression ',' expression ( ',' expression )? ')'
+  : 'REPLACE' OPEN_PAREN expression COMMA expression COMMA expression ( COMMA expression )? CLOSE_PAREN
 ;
 
 existsFunc //125
@@ -613,12 +613,12 @@ notExistsFunc //126
 
 aggregate //127
   : COUNT OPEN_PAREN DISTINCT? ( STAR | expression ) CLOSE_PAREN
-  | 'SUM' '(' 'DISTINCT'? expression ')'
-  | 'MIN' '(' 'DISTINCT'? expression ')'
-  | 'MAX' '(' 'DISTINCT'? expression ')'
-  | 'AVG' '(' 'DISTINCT'? expression ')'
-  | 'SAMPLE' '(' 'DISTINCT'? expression ')'
-  | 'GROUP_CONCAT' '(' 'DISTINCT'? expression ( ';' 'SEPARATOR' '=' string )? ')'
+  | 'SUM' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
+  | 'MIN' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
+  | 'MAX' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
+  | 'AVG' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
+  | 'SAMPLE' OPEN_PAREN 'DISTINCT'? expression CLOSE_PAREN
+  | 'GROUP_CONCAT' OPEN_PAREN 'DISTINCT'? expression ( ';' 'SEPARATOR' '=' string )? CLOSE_PAREN
 ;
 
 iriOrFunction //128
